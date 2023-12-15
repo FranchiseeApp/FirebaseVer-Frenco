@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "315932363891",
+    "project_id": "franchiseapp-ch2ps272",
+    "storage_bucket": "franchiseapp-ch2ps272.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315932363891:android:97404a64daaea5d4d16e06",
+        "android_client_info": {
+          "package_name": "com.aryasurya.franchiso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbTDMyMMJFeLC0gqiUoqaT1ttZp2NvgKo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

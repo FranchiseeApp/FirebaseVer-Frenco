@@ -25,4 +25,9 @@
         app:summary="@string/pref_notify_summary"
         app:title="@string/pref_notify_name" />
 
+    <Preference
+        app:key="logout"
+        app:title="Logout"
+        app:icon="@drawable/baseline_exit_to_app_24" />
+
 </PreferenceScreen>

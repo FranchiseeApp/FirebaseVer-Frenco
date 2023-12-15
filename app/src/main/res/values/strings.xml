@@ -15,6 +15,9 @@
     <string name="input_confirm_password">Input confirm password</string>
     <string name="network_error">Network error</string>
     <string name="username_password_is_incorrect">Username/password is incorrect</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- Night Mode Preferences -->
     <string name="pref_dark_title">Dark mode</string>
