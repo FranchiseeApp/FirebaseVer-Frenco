@@ -15,10 +15,10 @@ data class LoginRequest(
 )
 
 data class User(
-    val userId: String,
-    val username: String,
-    val email: String,
-    val name: String,
-    val password: String,
-    val role: String
+    val userId: String = "",
+    val username: String = "",
+    val email: String = "",
+    val name: String = "",
+    val password: String = "",
+    val role: String = ""
 )

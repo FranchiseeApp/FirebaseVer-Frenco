@@ -30,10 +30,10 @@
         app:layout_constraintTop_toBottomOf="@id/tv_login"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_username"
+        android:id="@+id/tl_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="Email"
         app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,7 +57,7 @@
         app:endIconMode="password_toggle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tl_username"
+        app:layout_constraintTop_toBottomOf="@id/tl_email"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp">
 

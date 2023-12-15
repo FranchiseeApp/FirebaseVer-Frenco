@@ -29,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.tvLoginHere.setOnClickListener {
             startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+            finish()
         }
 
         validEmail()
@@ -58,18 +59,11 @@ class RegisterActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Registrasi berhasil, lakukan tindakan setelah registrasi
                             binding.overlayLoading.visibility = View.GONE
-                            val user = viewModel.getCurrentUser()
-                            if (user != null) {
-                                // Simpan sesi pengguna setelah registrasi berhasil
-                                val loggedInUser = User(user.uid, inputUsername, inputEmail, inputName, inputPassword, "franchisor")
-                                val sessionManager = SessionManager(this)
-                                sessionManager.saveSession(loggedInUser)
-
                                 // Lanjutkan ke halaman lain atau tampilkan pesan sukses
                                 Toast.makeText(this,  "Register Successful", Toast.LENGTH_SHORT).show()
                                 startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                                finish()
 
-                            }
                         } else {
                             // Registrasi gagal, tampilkan pesan kesalahan
                             binding.overlayLoading.visibility = View.GONE
