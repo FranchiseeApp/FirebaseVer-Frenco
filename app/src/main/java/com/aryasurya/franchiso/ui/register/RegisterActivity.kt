@@ -10,8 +10,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryasurya.franchiso.R
-import com.aryasurya.franchiso.data.pref.User
-import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.databinding.ActivityRegisterBinding
 import com.aryasurya.franchiso.ui.login.LoginActivity
 import com.aryasurya.franchiso.ui.login.UserViewModel

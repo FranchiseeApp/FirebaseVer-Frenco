@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aryasurya.franchiso.data.UserRepository
-import com.aryasurya.franchiso.data.pref.User
+import com.aryasurya.franchiso.data.entity.User
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser

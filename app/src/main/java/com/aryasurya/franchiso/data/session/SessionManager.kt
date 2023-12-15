@@ -2,7 +2,7 @@ package com.aryasurya.franchiso.data.session
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.aryasurya.franchiso.data.pref.User
+import com.aryasurya.franchiso.data.entity.User
 
 class SessionManager(private val context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)

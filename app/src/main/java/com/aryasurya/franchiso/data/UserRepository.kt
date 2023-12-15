@@ -1,7 +1,7 @@
 package com.aryasurya.franchiso.data
 
 import android.util.Log
-import com.aryasurya.franchiso.data.pref.User
+import com.aryasurya.franchiso.data.entity.User
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.Firebase

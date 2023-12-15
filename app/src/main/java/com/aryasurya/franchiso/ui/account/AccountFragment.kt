@@ -2,7 +2,6 @@
 
     import android.content.Intent
     import android.os.Bundle
-    import android.util.Log
     import androidx.fragment.app.Fragment
     import android.view.LayoutInflater
     import android.view.View
@@ -15,13 +14,12 @@
     import androidx.preference.Preference
     import androidx.preference.PreferenceFragmentCompat
     import com.aryasurya.franchiso.R
-    import com.aryasurya.franchiso.data.pref.User
+    import com.aryasurya.franchiso.data.entity.User
     import com.aryasurya.franchiso.data.session.SessionManager
     import com.aryasurya.franchiso.databinding.FragmentAccountBinding
     import com.aryasurya.franchiso.ui.login.LoginActivity
     import com.aryasurya.franchiso.ui.login.UserViewModel
     import com.aryasurya.franchiso.utils.DarkMode
-    import com.google.firebase.auth.FirebaseAuth
 
     class AccountFragment : Fragment() {
 

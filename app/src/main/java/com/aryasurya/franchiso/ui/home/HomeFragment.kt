@@ -6,13 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aryasurya.franchiso.R
-import com.aryasurya.franchiso.data.pref.User
+import com.aryasurya.franchiso.data.entity.User
 import com.aryasurya.franchiso.data.session.SessionManager
-import com.aryasurya.franchiso.databinding.FragmentAccountBinding
 import com.aryasurya.franchiso.databinding.FragmentHomeBinding
 import com.aryasurya.franchiso.ui.login.LoginActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class HomeFragment : Fragment() {
 

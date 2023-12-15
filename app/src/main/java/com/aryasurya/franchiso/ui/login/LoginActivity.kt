@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.aryasurya.franchiso.MainActivity
 import com.aryasurya.franchiso.R
-import com.aryasurya.franchiso.data.pref.User
+import com.aryasurya.franchiso.data.entity.User
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.databinding.ActivityLoginBinding
 import com.aryasurya.franchiso.ui.register.RegisterActivity
