@@ -29,6 +29,12 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
+        val userId = viewModel.getCurrentUser()
+
+        if (userId != null) {
+            viewModel.fetchUserData(userId.uid)
+        }
+
         binding.tvNotHaveAcc.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }

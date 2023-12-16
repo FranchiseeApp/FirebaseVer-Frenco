@@ -24,6 +24,9 @@ class UserRepository {
                     "username" to username,
                     "email" to email,
                     "name" to name,
+                    "photoProfileUrl" to "",
+                    "gender" to "",
+                    "noTel" to "",
                     "role" to "franchisor"
                 )
 
@@ -70,6 +73,32 @@ class UserRepository {
             .addOnFailureListener { e ->
                 onComplete(null)
                 Log.w("GetDataUser", "Error getting user data", e)
+            }
+    }
+
+    fun updateUserData(userId: String, updatedUser: User, onComplete: (Boolean) -> Unit) {
+        db.collection("users")
+            .document(userId)
+            .set(updatedUser) // Jika Anda hanya ingin memperbarui bagian tertentu, gunakan .update() atau operasi lain yang sesuai
+            .addOnSuccessListener {
+                onComplete(true) // Berhasil memperbarui data pengguna
+            }
+            .addOnFailureListener { e ->
+                onComplete(false) // Gagal memperbarui data pengguna
+                Log.w("UpdateDataUser", "Error updating user data", e)
+            }
+    }
+
+    fun updateSpecificUserData(userId: String, updatedFields: Map<String, Any>, onComplete: (Boolean) -> Unit) {
+        db.collection("users")
+            .document(userId)
+            .update(updatedFields) // Memperbarui bidang-bidang tertentu dalam dokumen
+            .addOnSuccessListener {
+                onComplete(true) // Berhasil memperbarui data pengguna
+            }
+            .addOnFailureListener { e ->
+                onComplete(false) // Gagal memperbarui data pengguna
+                Log.w("UpdateSpecificDataUser", "Error updating user data", e)
             }
     }
 }

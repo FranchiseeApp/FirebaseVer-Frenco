@@ -57,10 +57,11 @@ class RegisterActivity : AppCompatActivity() {
                         if (task.isSuccessful) {
                             // Registrasi berhasil, lakukan tindakan setelah registrasi
                             binding.overlayLoading.visibility = View.GONE
-                                // Lanjutkan ke halaman lain atau tampilkan pesan sukses
-                                Toast.makeText(this,  "Register Successful", Toast.LENGTH_SHORT).show()
-                                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-                                finish()
+
+                            // Lanjutkan ke halaman lain atau tampilkan pesan sukses
+                            Toast.makeText(this,  "Register Successful", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                            finish()
 
                         } else {
                             // Registrasi gagal, tampilkan pesan kesalahan
