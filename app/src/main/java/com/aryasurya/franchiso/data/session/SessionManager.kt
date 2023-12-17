@@ -13,8 +13,10 @@ class SessionManager(private val context: Context) {
         editor.putString("username", user.username)
         editor.putString("email", user.email)
         editor.putString("name", user.name)
-        editor.putString("password", user.password)
+        editor.putString("photoProfileUrl", user.photoProfileUrl)
         editor.putString("role", user.role)
+        editor.putString("gender", user.gender)
+        editor.putString("noTel", user.noTel)
         editor.apply()
     }
 
@@ -23,11 +25,13 @@ class SessionManager(private val context: Context) {
         val username = sharedPreferences.getString("username", null)
         val email = sharedPreferences.getString("email", null)
         val name = sharedPreferences.getString("name", null)
-        val password = sharedPreferences.getString("password", null)
+        val photoProfileUrl = sharedPreferences.getString("photoProfileUrl", null)
         val role = sharedPreferences.getString("role", null)
+        val gender = sharedPreferences.getString("gender", null)
+        val noTel = sharedPreferences.getString("noTel", null)
 
-        return if (userId != null && username != null && email != null && name != null && password != null && role != null) {
-            User(userId, username, email, name, password, role)
+        return if (userId != null && username != null && email != null && name != null && photoProfileUrl != null && role != null && gender != null && noTel != null) {
+            User(userId, username, email, name, photoProfileUrl, role, gender, noTel)
         } else {
             null
         }

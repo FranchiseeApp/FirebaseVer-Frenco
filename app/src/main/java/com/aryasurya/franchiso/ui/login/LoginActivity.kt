@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.aryasurya.franchiso.data.entity.User
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.databinding.ActivityLoginBinding
 import com.aryasurya.franchiso.ui.register.RegisterActivity
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -52,26 +54,49 @@ class LoginActivity : AppCompatActivity() {
             val inputPassword = password.editText?.text.toString()
 
             if (isEmailValid(inputEmail) && isPasswordValid(inputPassword)) {
-
                 binding.overlayLoading.visibility = View.VISIBLE
 
                 viewModel.loginUser(inputEmail, inputPassword)
                     .addOnCompleteListener { task ->
-                        // Sembunyikan ProgressBar setelah proses selesai, baik berhasil atau gagal
-                        binding.overlayLoading.visibility = View.GONE
+                        binding.overlayLoading.visibility = View.GONE // Sembunyikan ProgressBar
 
                         if (task.isSuccessful) {
-                            // Login berhasil
-                            val user = viewModel.getCurrentUser()
-                            if (user != null) {
-                                // Simpan sesi pengguna setelah registrasi berhasil
-                                val loggedInUser = User(user.uid, "username", inputEmail, "name", "password", "franchisor")
-                                val sessionManager = SessionManager(this)
-                                sessionManager.saveSession(loggedInUser)
-                                // Lakukan tindakan setelah login berhasil
-                                // Misalnya, navigasi ke halaman selanjutnya
-                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                                finish()
+                            val firebaseUser = viewModel.getCurrentUser() // Ambil pengguna dari hasil autentikasi Firebase
+                            if (firebaseUser != null) {
+                                // Ambil data pengguna dari Firestore
+                                val db = FirebaseFirestore.getInstance()
+                                val userDocument = db.collection("users").document(firebaseUser.uid)
+                                userDocument.get()
+                                    .addOnSuccessListener { documentSnapshot ->
+                                        if (documentSnapshot.exists()) {
+                                            val user = documentSnapshot.toObject(User::class.java)
+                                            if (user != null) {
+                                                // Simpan sesi pengguna setelah login berhasil
+                                                val loggedInUser = User(
+                                                    user.userId,
+                                                    user.username,
+                                                    user.email,
+                                                    user.name,
+                                                    user.photoProfileUrl,
+                                                    user.role,
+                                                    user.gender,
+                                                    user.noTel
+                                                )
+                                                val sessionManager = SessionManager(this)
+                                                sessionManager.saveSession(loggedInUser)
+
+                                                // Lakukan tindakan setelah login berhasil
+                                                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                                finish()
+                                            }
+                                        } else {
+                                            // Dokumen tidak ditemukan di Firestore
+                                        }
+                                    }
+                                    .addOnFailureListener { exception ->
+                                        // Handle kesalahan saat mengambil data dari Firestore
+                                        Log.e("LoginActivity", "Error getting user document", exception)
+                                    }
                             }
                         } else {
                             // Gagal login, tampilkan pesan kesalahan
@@ -79,12 +104,9 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this, "Login gagal.", Toast.LENGTH_SHORT).show()
                         }
                     }
-            }
-            else {
+            } else {
                 email.isErrorEnabled = false
                 password.isErrorEnabled = false
-
-
 
                 if (!isEmailValid(inputEmail)) {
                     email.error = getString(R.string.invalid_email_address)
@@ -96,6 +118,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun validEmail() {
         val inputEmailLayout = binding.tlEmail

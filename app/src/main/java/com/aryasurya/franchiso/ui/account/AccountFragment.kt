@@ -25,6 +25,8 @@ import com.aryasurya.franchiso.ui.login.UserViewModel
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -62,13 +64,47 @@ class AccountFragment : Fragment() {
             .replace(R.id.settings, preferenceFragment)
             .commit()
 
-        if (user != null) {
-            viewModel.fetchUserData(user.userId)
+        val db = FirebaseFirestore.getInstance()
+        db.firestoreSettings = FirebaseFirestoreSettings.Builder()
+            .setPersistenceEnabled(true)
+            .build()
 
+        Log.d(TAG, "onViewCreated: $user")
+        
+        binding.tvNameProfile.text = user?.name
+        if (user?.photoProfileUrl.isNullOrEmpty()) {
+            binding.ivProfile.setImageResource(R.drawable.image_user_default)
         } else {
-            startActivity(Intent(requireActivity(), LoginActivity::class.java))
-            requireActivity().finish()
+            Glide.with(requireContext()).load(user?.photoProfileUrl).into(binding.ivProfile)
         }
+
+//        val usersCollection = user?.let { db.collection("users").document(it.userId) }
+//        usersCollection?.get()
+//            ?.addOnSuccessListener { documentSnapshot ->
+//                if (documentSnapshot.exists()) {
+//                    val user = documentSnapshot.toObject(User::class.java)
+//                    // Lakukan sesuatu dengan data pengguna yang Anda dapatkan
+//                    binding.tvNameProfile.text = user?.name
+//                    if (user?.photoProfileUrl == null) {
+//                        binding.ivProfile.setImageResource(R.drawable.image_user_default)
+//                    } else {
+//                        Glide.with(requireContext()).load(user?.photoProfileUrl).into(binding.ivProfile)
+//                    }
+//                } else {
+//                    // Dokumen tidak ditemukan
+//                }
+//            }
+//            ?.addOnFailureListener { exception ->
+//                // Handle kesalahan saat mengambil data dari Firestore
+//                Log.e("Firestore", "Error getting user document", exception)
+//            }
+//        if (user != null) {
+//            viewModel.fetchUserData(user.userId)
+//
+//        } else {
+//            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+//            requireActivity().finish()
+//        }
 
 
 //        viewModel.userData.observe(viewLifecycleOwner) { user ->

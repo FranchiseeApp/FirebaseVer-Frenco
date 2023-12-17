@@ -29,18 +29,6 @@
         app:layout_constraintTop_toTopOf="@id/iv_banner"
         app:layout_constraintBottom_toTopOf="@id/tv_name_profile"/>
 
-    <Button
-        android:id="@+id/btn_change_photo_profile"
-        style="?attr/materialIconButtonFilledStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-        app:layout_constraintStart_toEndOf="@id/iv_profile"
-        app:icon="@drawable/camera_icon"
-        android:layout_marginLeft="-32dp"
-        app:strokeWidth="2dp"
-        app:strokeColor="?attr/colorOnSecondary" />
 
     <TextView
         android:id="@+id/tv_name_profile"
@@ -48,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="47dp"
         android:maxLines="1"
-        android:text="I Kadek Arya Surya Saputra"
+        tools:text="I Kadek Arya Surya Saputra"
         android:textColor="@color/white"
         android:textSize="21sp"
         android:textStyle="bold"
