@@ -122,6 +122,8 @@ class AddFranchiseActivity : AppCompatActivity() {
                 // Tambahkan logika atau tindakan lanjutan setelah data berhasil diunggah
                 Toast.makeText(this, "Franchise data uploaded successfully!", Toast.LENGTH_SHORT).show()
                 // Setelah berhasil mengunggah, bisa redirect ke halaman lain atau lakukan tindakan lainnya
+
+                finish()
             }
             .addOnFailureListener { e ->
                 Log.w("Upload Franchise", "Error adding document", e)
