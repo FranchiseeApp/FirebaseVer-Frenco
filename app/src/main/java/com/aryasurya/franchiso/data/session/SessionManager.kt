@@ -7,6 +7,7 @@ import com.aryasurya.franchiso.data.entity.User
 class SessionManager(private val context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
+    private val editor: SharedPreferences.Editor = sharedPreferences.edit()
     fun saveSession(user: User) {
         val editor = sharedPreferences.edit()
         editor.putString("userId", user.userId)
@@ -38,8 +39,29 @@ class SessionManager(private val context: Context) {
     }
 
     fun clearSession() {
-        val editor = sharedPreferences.edit()
         editor.clear()
+        editor.apply()
+    }
+
+    fun updateSessionName(name: String) {
+        editor.putString("name", name)
+        editor.apply()
+    }
+
+    // Fungsi untuk memperbarui nomor telepon di session
+    fun updateSessionNoTel(noTel: String) {
+        editor.putString("noTel", noTel)
+        editor.apply()
+    }
+
+    // Fungsi untuk memperbarui gender di session
+    fun updateSessionGender(gender: String) {
+        editor.putString("gender", gender)
+        editor.apply()
+    }
+
+    fun updateSessionPhotoProfile(photoProfileUrl: String) {
+        editor.putString("photoProfileUrl", photoProfileUrl)
         editor.apply()
     }
 }

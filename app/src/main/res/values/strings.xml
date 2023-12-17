@@ -18,6 +18,14 @@
     <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="permission_request_granted">Permission request granted</string>
+    <string name="permission_request_denied">Permission request denied</string>
+    <string name="choose_from">Choose From</string>
+    <string name="take_photo">Take photo</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="failed_to_get_camera">Failed to get camera</string>
+    <string name="failed_to_get_image">Failed to get Image</string>
 
     <!-- Night Mode Preferences -->
     <string name="pref_dark_title">Dark mode</string>
