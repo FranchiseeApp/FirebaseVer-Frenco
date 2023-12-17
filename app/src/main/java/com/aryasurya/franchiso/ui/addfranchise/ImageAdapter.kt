@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.aryasurya.franchiso.R
+import com.aryasurya.franchiso.data.entity.FranchiseItem
 
 class ImageAdapter(private val imageList: List<Uri>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
@@ -19,6 +20,7 @@ class ImageAdapter(private val imageList: List<Uri>) : RecyclerView.Adapter<Imag
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_image_input, parent, false)
         return ImageViewHolder(view)
     }
+
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val currentImage = imageList[position]

@@ -19,9 +19,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryasurya.franchiso.R
+import com.aryasurya.franchiso.data.entity.FranchiseData
 import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.ActivityAddFranchiseBinding
 import com.aryasurya.franchiso.ui.addfranchise.addtype.AddTypeActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.io.ByteArrayOutputStream
 
 class AddFranchiseActivity : AppCompatActivity() {
@@ -74,6 +77,58 @@ class AddFranchiseActivity : AppCompatActivity() {
         binding.btnAddImg.setOnClickListener {
             showImagePickerDialog()
         }
+
+        binding.btnUploadDataFranchise.setOnClickListener {
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userId = currentUser?.uid
+
+            // Panggil fungsi untuk mengumpulkan data dari inputan
+            val franchiseName = binding.tlName.editText?.text.toString()
+            val franchiseAddress = binding.tlAddress.editText?.text.toString()
+            val franchiseDescription = binding.tlDesc.editText?.text.toString()
+            val franchiseCategory = binding.autoCompleteTextView.text.toString()
+            val franchisePhoneNumber = binding.tlWa.editText?.text.toString()
+
+            // Dapatkan daftar tipe franchisenya dari adapter
+            val franchiseTypes = adapter.getItems()
+
+            // Dapatkan daftar URI gambar dari adapter atau variabel lain
+            val imageUris = selectedImages.toList()
+
+            // Buat objek FranchiseData dari data yang terkumpul
+            val franchiseData = FranchiseData(
+                userId = userId,
+                name = franchiseName,
+                address = franchiseAddress,
+                description = franchiseDescription,
+                category = franchiseCategory,
+                phoneNumber = franchisePhoneNumber,
+                franchiseTypes = franchiseTypes,
+                images = imageUris.map { it.toString() } // Ubah URI menjadi String
+            )
+
+            // Panggil fungsi untuk mengunggah data ke Firebase
+            uploadDataToFirebase(franchiseData)
+        }
+    }
+
+    private fun uploadDataToFirebase(franchiseData: FranchiseData) {
+        val db = FirebaseFirestore.getInstance()
+        val franchisesCollection = db.collection("franchises")
+
+        franchisesCollection.add(franchiseData)
+            .addOnSuccessListener { documentReference ->
+                Log.d("Upload Franchise", "DocumentSnapshot added with ID: ${documentReference.id}")
+                // Tambahkan logika atau tindakan lanjutan setelah data berhasil diunggah
+                Toast.makeText(this, "Franchise data uploaded successfully!", Toast.LENGTH_SHORT).show()
+                // Setelah berhasil mengunggah, bisa redirect ke halaman lain atau lakukan tindakan lainnya
+            }
+            .addOnFailureListener { e ->
+                Log.w("Upload Franchise", "Error adding document", e)
+                // Handle error jika data gagal diunggah
+                Toast.makeText(this, "Failed to upload franchise data!", Toast.LENGTH_SHORT).show()
+                // Lakukan tindakan untuk menangani kegagalan unggah data
+            }
     }
 
     private fun showImagePickerDialog() {

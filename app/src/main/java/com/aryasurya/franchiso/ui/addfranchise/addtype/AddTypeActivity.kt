@@ -41,23 +41,6 @@ class AddTypeActivity : AppCompatActivity() {
         }
     }
 
-//    private fun saveType() {
-//        val type = binding.autoCompleteTextView.text.toString().trim()
-//        val facility = binding.tlFacility.editText?.text.toString().trim()
-//        val price = binding.tlPrice.editText?.text.toString().trim()
-//
-//        if (type.isNotEmpty() && facility.isNotEmpty() && price.isNotEmpty()) {
-//            val newTypeItem = FranchiseItem(type, facility, price)
-//            val resultIntent = Intent()
-//            resultIntent.putExtra(EXTRA_TYPE_ITEM, newTypeItem)
-//            setResult(Activity.RESULT_OK, resultIntent)
-//            finish()
-//        } else {
-//            // Handle when fields are empty
-//            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-//        }
-//    }
-
     private fun saveEditedItem() {
         val editedType = createEditedType() // Mendapatkan data yang sudah diedit dari input fields
 

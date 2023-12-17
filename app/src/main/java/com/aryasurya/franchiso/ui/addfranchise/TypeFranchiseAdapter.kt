@@ -153,10 +153,14 @@ class TypeFranchiseAdapter(
         if (position != RecyclerView.NO_POSITION && position < items.size) {
             items.removeAt(position)
             notifyItemRemoved(position)
+            notifyItemRangeChanged(position, items.size)
         }
     }
 
     fun getItem(position: Int): FranchiseItem {
         return items[position]
+    }
+    fun getItems(): List<FranchiseItem> {
+        return items.toList()
     }
 }
