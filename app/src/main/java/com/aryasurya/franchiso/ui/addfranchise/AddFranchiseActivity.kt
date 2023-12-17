@@ -25,6 +25,7 @@ import com.aryasurya.franchiso.databinding.ActivityAddFranchiseBinding
 import com.aryasurya.franchiso.ui.addfranchise.addtype.AddTypeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 
 class AddFranchiseActivity : AppCompatActivity() {
@@ -96,19 +97,36 @@ class AddFranchiseActivity : AppCompatActivity() {
             val imageUris = selectedImages.toList()
 
             // Buat objek FranchiseData dari data yang terkumpul
-            val franchiseData = FranchiseData(
-                userId = userId,
-                name = franchiseName,
-                address = franchiseAddress,
-                description = franchiseDescription,
-                category = franchiseCategory,
-                phoneNumber = franchisePhoneNumber,
-                franchiseTypes = franchiseTypes,
-                images = imageUris.map { it.toString() } // Ubah URI menjadi String
-            )
+//            val franchiseData = FranchiseData(
+//                userId = userId,
+//                name = franchiseName,
+//                address = franchiseAddress,
+//                description = franchiseDescription,
+//                category = franchiseCategory,
+//                phoneNumber = franchisePhoneNumber,
+//                franchiseTypes = franchiseTypes,
+//                images = imageUris.map { it.toString() } // Ubah URI menjadi String
+//            )
+//
+//            // Panggil fungsi untuk mengunggah data ke Firebase
+//            uploadDataToFirebase(franchiseData)
 
-            // Panggil fungsi untuk mengunggah data ke Firebase
-            uploadDataToFirebase(franchiseData)
+            uploadImagesToFirebaseStorage(selectedImages) { imageUrls ->
+                // Setelah berhasil mengunggah gambar, lanjutkan dengan menyimpan URI ke Firestore
+                val franchiseData = FranchiseData(
+                    userId = userId,
+                    name = franchiseName,
+                    address = franchiseAddress,
+                    description = franchiseDescription,
+                    category = franchiseCategory,
+                    phoneNumber = franchisePhoneNumber,
+                    franchiseTypes = franchiseTypes,
+                    images = imageUrls // Gunakan URI gambar yang diunggah ke Firebase Storage
+                )
+
+                // Panggil fungsi untuk menyimpan data ke Firestore
+                uploadDataToFirebase(franchiseData)
+            }
         }
     }
 
@@ -119,9 +137,7 @@ class AddFranchiseActivity : AppCompatActivity() {
         franchisesCollection.add(franchiseData)
             .addOnSuccessListener { documentReference ->
                 Log.d("Upload Franchise", "DocumentSnapshot added with ID: ${documentReference.id}")
-                // Tambahkan logika atau tindakan lanjutan setelah data berhasil diunggah
                 Toast.makeText(this, "Franchise data uploaded successfully!", Toast.LENGTH_SHORT).show()
-                // Setelah berhasil mengunggah, bisa redirect ke halaman lain atau lakukan tindakan lainnya
 
                 finish()
             }
@@ -131,6 +147,38 @@ class AddFranchiseActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to upload franchise data!", Toast.LENGTH_SHORT).show()
                 // Lakukan tindakan untuk menangani kegagalan unggah data
             }
+    }
+
+    private fun uploadImagesToFirebaseStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.reference
+
+        val imageUrls = mutableListOf<String>()
+        var imagesUploaded = 0
+
+        for (imageUri in images) {
+            val imageName = "image_${System.currentTimeMillis()}.jpg" // Nama image
+            val fileRef = storageRef.child("images/$imageName")
+
+            val uploadTask = fileRef.putFile(imageUri)
+
+            uploadTask.addOnSuccessListener { taskSnapshot ->
+                // Jika berhasil diunggah, dapatkan URI unduhan
+                fileRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                    val imageUrl = downloadUri.toString()
+                    imageUrls.add(imageUrl)
+
+                    imagesUploaded++
+                    if (imagesUploaded == images.size) {
+                        // Semua gambar telah diunggah, kembalikan URI gambar
+                        onComplete(imageUrls)
+                    }
+                }
+            }.addOnFailureListener { exception ->
+                // Handle error jika gagal mengunggah gambar
+                // Bisa saja melanjutkan atau membatalkan proses, tergantung pada kebutuhan aplikasi
+            }
+        }
     }
 
     private fun showImagePickerDialog() {
