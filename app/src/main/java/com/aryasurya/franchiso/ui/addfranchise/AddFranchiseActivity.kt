@@ -80,6 +80,7 @@ class AddFranchiseActivity : AppCompatActivity() {
         }
 
         binding.btnUploadDataFranchise.setOnClickListener {
+            binding.overlayLoading.visibility = View.VISIBLE
             val currentUser = FirebaseAuth.getInstance().currentUser
             val userId = currentUser?.uid
 
@@ -138,7 +139,7 @@ class AddFranchiseActivity : AppCompatActivity() {
             .addOnSuccessListener { documentReference ->
                 Log.d("Upload Franchise", "DocumentSnapshot added with ID: ${documentReference.id}")
                 Toast.makeText(this, "Franchise data uploaded successfully!", Toast.LENGTH_SHORT).show()
-
+                binding.overlayLoading.visibility = View.GONE
                 finish()
             }
             .addOnFailureListener { e ->
@@ -146,6 +147,7 @@ class AddFranchiseActivity : AppCompatActivity() {
                 // Handle error jika data gagal diunggah
                 Toast.makeText(this, "Failed to upload franchise data!", Toast.LENGTH_SHORT).show()
                 // Lakukan tindakan untuk menangani kegagalan unggah data
+                binding.overlayLoading.visibility = View.GONE
             }
     }
 
