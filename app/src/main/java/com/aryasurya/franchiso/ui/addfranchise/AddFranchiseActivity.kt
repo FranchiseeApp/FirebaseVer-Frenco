@@ -3,14 +3,17 @@ package com.aryasurya.franchiso.ui.addfranchise
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
@@ -97,37 +100,30 @@ class AddFranchiseActivity : AppCompatActivity() {
             // Dapatkan daftar URI gambar dari adapter atau variabel lain
             val imageUris = selectedImages.toList()
 
-            // Buat objek FranchiseData dari data yang terkumpul
-//            val franchiseData = FranchiseData(
-//                userId = userId,
-//                name = franchiseName,
-//                address = franchiseAddress,
-//                description = franchiseDescription,
-//                category = franchiseCategory,
-//                phoneNumber = franchisePhoneNumber,
-//                franchiseTypes = franchiseTypes,
-//                images = imageUris.map { it.toString() } // Ubah URI menjadi String
-//            )
-//
-//            // Panggil fungsi untuk mengunggah data ke Firebase
-//            uploadDataToFirebase(franchiseData)
 
-            uploadImagesToFirebaseStorage(selectedImages) { imageUrls ->
-                // Setelah berhasil mengunggah gambar, lanjutkan dengan menyimpan URI ke Firestore
-                val franchiseData = FranchiseData(
-                    userId = userId,
-                    name = franchiseName,
-                    address = franchiseAddress,
-                    description = franchiseDescription,
-                    category = franchiseCategory,
-                    phoneNumber = franchisePhoneNumber,
-                    franchiseTypes = franchiseTypes,
-                    images = imageUrls,
+            if (franchiseTypes.isNotEmpty()) {
+                val textColorPrimary = getColorFromAttribute(android.R.attr.textColorPrimary)
+                binding.tvSecType.setTextColor(textColorPrimary)
+                uploadImagesToFirebaseStorage(selectedImages) { imageUrls ->
+                    // Setelah berhasil mengunggah gambar, lanjutkan dengan menyimpan URI ke Firestore
+                    val franchiseData = FranchiseData(
+                        userId = userId,
+                        name = franchiseName,
+                        address = franchiseAddress,
+                        description = franchiseDescription,
+                        category = franchiseCategory,
+                        phoneNumber = franchisePhoneNumber,
+                        franchiseTypes = franchiseTypes,
+                        images = imageUrls,
+                    )
 
-                )
-
-                // Panggil fungsi untuk menyimpan data ke Firestore
-                uploadDataToFirebase(franchiseData)
+                    // Panggil fungsi untuk menyimpan data ke Firestore
+                    uploadDataToFirebase(franchiseData)
+                }
+            } else {
+                binding.overlayLoading.visibility = View.GONE
+                binding.tvSecType.setTextColor(Color.RED)
+                Toast.makeText(this, "Please add at least one Franchise Type", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -135,6 +131,8 @@ class AddFranchiseActivity : AppCompatActivity() {
     private fun uploadDataToFirebase(franchiseData: FranchiseData) {
         val db = FirebaseFirestore.getInstance()
         val franchisesCollection = db.collection("franchises")
+
+
 
         franchisesCollection.add(franchiseData)
             .addOnSuccessListener { documentReference ->
@@ -185,28 +183,36 @@ class AddFranchiseActivity : AppCompatActivity() {
         val imageUrls = mutableListOf<String>()
         var imagesUploaded = 0
 
-        for (imageUri in images) {
-            val imageName = "image_${System.currentTimeMillis()}.jpg" // Nama image
-            val fileRef = storageRef.child("images/$imageName")
+        val maxImageCount = 4
+        if (images.size >= maxImageCount) {
+            for (imageUri in images) {
+                val imageName = "image_${System.currentTimeMillis()}.jpg" // Nama image
+                val fileRef = storageRef.child("images/$imageName")
 
-            val uploadTask = fileRef.putFile(imageUri)
+                val uploadTask = fileRef.putFile(imageUri)
 
-            uploadTask.addOnSuccessListener { taskSnapshot ->
-                // Jika berhasil diunggah, dapatkan URI unduhan
-                fileRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                    val imageUrl = downloadUri.toString()
-                    imageUrls.add(imageUrl)
+                uploadTask.addOnSuccessListener { taskSnapshot ->
+                    // Jika berhasil diunggah, dapatkan URI unduhan
+                    fileRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                        val imageUrl = downloadUri.toString()
+                        imageUrls.add(imageUrl)
 
-                    imagesUploaded++
-                    if (imagesUploaded == images.size) {
-                        // Semua gambar telah diunggah, kembalikan URI gambar
-                        onComplete(imageUrls)
+                        imagesUploaded++
+                        if (imagesUploaded == images.size) {
+                            // Semua gambar telah diunggah, kembalikan URI gambar
+                            onComplete(imageUrls)
+                        }
                     }
+                }.addOnFailureListener { exception ->
+                    binding.overlayLoading.visibility = View.GONE
+                    // Handle error jika gagal mengunggah gambar
+                    // Bisa saja melanjutkan atau membatalkan proses, tergantung pada kebutuhan aplikasi
                 }
-            }.addOnFailureListener { exception ->
-                // Handle error jika gagal mengunggah gambar
-                // Bisa saja melanjutkan atau membatalkan proses, tergantung pada kebutuhan aplikasi
             }
+        } else {
+            binding.overlayLoading.visibility = View.GONE
+            binding.tvSecImage.setTextColor(Color.RED)
+            Toast.makeText(this, "Select at least 4 images", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -305,5 +311,12 @@ class AddFranchiseActivity : AppCompatActivity() {
         val intent = Intent(this, AddTypeActivity::class.java)
         intent.putExtra(AddTypeActivity.EXTRA_TYPE_ITEM, editedItem)
         startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE)
+    }
+
+    fun Context.getColorFromAttribute(attr: Int): Int {
+        val typedValue = TypedValue()
+        val theme = theme
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 }
