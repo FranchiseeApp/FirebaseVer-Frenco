@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.detail.DetailActivity">
+
+        <ImageView
+            android:id="@+id/bigImage"
+            android:layout_width="0dp"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/smallImage1"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toStartOf="@id/smallImage2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bigImage"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/smallImage2"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toEndOf="@+id/smallImage1"
+            app:layout_constraintTop_toBottomOf="@+id/bigImage"
+            app:layout_constraintEnd_toStartOf="@id/smallImage3"
+            tools:src="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/smallImage3"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/smallImage2"
+            app:layout_constraintTop_toBottomOf="@+id/bigImage"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/btn_load_more"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:text="+1"
+            android:background="@color/black"
+            android:clickable="true"
+            android:alpha="0.5"
+            android:textSize="27sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/smallImage2"
+            app:layout_constraintTop_toBottomOf="@+id/bigImage"
+            app:layout_constraintBottom_toBottomOf="@id/smallImage3"/>
+
+        <TextView
+            android:id="@+id/tv_name_franchises"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="7dp"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/smallImage1"
+            tools:text="Nama Franchises" />
+
+        <TextView
+            android:id="@+id/tv_price_franchises"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="7dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_franchises"
+            tools:text="Rp10000 - Rp10000" />
+
+        <TextView
+            android:id="@+id/tv_type_franchises"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="14dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_franchises"
+            android:text="Type Franchise" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_type_franchise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_type_franchises"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_type_detail" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="14dp"
+            android:text="Description"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_type_franchise" />
+
+        <TextView
+            android:id="@+id/tv_desc_franchises"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="21dp"
+            android:layout_marginTop="7dp"
+            tools:text="@tools:sample/lorem[30]"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+        <Button
+            android:id="@+id/btn_wa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="WhatApp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_desc_franchises"
+            app:layout_constraintStart_toStartOf="@+id/tv_desc_franchises"
+            app:layout_constraintTop_toBottomOf="@+id/tv_desc_franchises" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

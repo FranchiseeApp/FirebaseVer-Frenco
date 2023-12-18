@@ -25,6 +25,7 @@
         android:src="@drawable/image_user_default"
         android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/iv_banner"
         app:layout_constraintBottom_toTopOf="@id/tv_name_profile"/>

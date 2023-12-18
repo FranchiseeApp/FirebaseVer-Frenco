@@ -88,10 +88,13 @@ class HomeFragment : Fragment() {
             franchisesCollection.whereEqualTo("userId", userId)
                 .get()
                 .addOnSuccessListener { documents ->
+
                     val franchiseList = mutableListOf<FranchiseData>()
+
 
                     for (document in documents) {
                         val franchiseData = document.toObject(FranchiseData::class.java)
+                        Log.d("datas", "$franchiseData")
                         franchiseList.add(franchiseData)
                     }
                     // Set up RecyclerView dengan adapter untuk menampilkan data franchises

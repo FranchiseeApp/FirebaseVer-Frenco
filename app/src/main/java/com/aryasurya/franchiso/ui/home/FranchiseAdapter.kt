@@ -1,10 +1,13 @@
 package com.aryasurya.franchiso.ui.home
 
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aryasurya.franchiso.data.entity.FranchiseData
 import com.aryasurya.franchiso.databinding.StoryItemBinding
+import com.aryasurya.franchiso.ui.detail.DetailActivity
 import com.bumptech.glide.Glide
 
 class FranchiseAdapter(private val franchiseList: List<FranchiseData>) :
@@ -35,6 +38,14 @@ class FranchiseAdapter(private val franchiseList: List<FranchiseData>) :
         val franchiseData = franchiseList[position]
 //        val firstImageUri = franchiseData.images.firstOrNull()
         holder.bind(franchiseData)
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            // Mengirim ID dokumen yang dipilih ke halaman detail menggunakan Intent
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("franchiseId", franchiseData.documentId)
+            Log.d("SendId", "franchiseId: ${franchiseData.documentId}")// Ganti "id" dengan field ID dari FranchiseData
+            context.startActivity(intent)
+        }
 
 //        if (!firstImageUri.isNullOrEmpty()) {
 //            Glide.with(holder.itemView)

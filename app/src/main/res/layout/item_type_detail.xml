@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginEnd="14dp">
+    <ImageView
+        android:id="@+id/iv_franchise_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/baseline_storefront_24"
+        android:background="@drawable/circle_img"
+        android:padding="30dp"/>
+    <TextView
+        android:id="@+id/tv_name_franchises"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stand"
+        android:gravity="center"/>
+</LinearLayout>
