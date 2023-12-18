@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.ItemTypeDetailBinding
 
-class FranchiseItemAdapter(private val items: List<FranchiseItem>) :
-    RecyclerView.Adapter<FranchiseItemAdapter.FranchiseItemViewHolder>() {
+class FranchiseItemAdapter(
+    private val items: List<FranchiseItem>,
+    private val onItemClick: (FranchiseItem) -> Unit
+) : RecyclerView.Adapter<FranchiseItemAdapter.FranchiseItemViewHolder>() {
 
     inner class FranchiseItemViewHolder(val binding: ItemTypeDetailBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -15,6 +17,10 @@ class FranchiseItemAdapter(private val items: List<FranchiseItem>) :
         fun bind(franchiseItem: FranchiseItem) {
             // Bind data ke elemen UI dalam item menggunakan ViewBinding
             binding.tvNameFranchises.text = franchiseItem.type
+
+            itemView.setOnClickListener {
+                onItemClick(franchiseItem)
+            }
             // Set image based on type
 //            if (franchiseItem.type == "Store") {
 //                // Set image for Store type

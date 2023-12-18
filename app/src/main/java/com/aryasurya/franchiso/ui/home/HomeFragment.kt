@@ -27,8 +27,6 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater , container , false)
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -95,7 +93,6 @@ class HomeFragment : Fragment() {
                 .addOnSuccessListener { documents ->
 
                     val franchiseList = mutableListOf<FranchiseData>()
-
 
                     for (document in documents) {
                         val franchiseData = document.toObject(FranchiseData::class.java)

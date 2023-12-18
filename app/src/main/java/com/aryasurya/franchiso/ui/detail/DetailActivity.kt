@@ -1,23 +1,30 @@
 package com.aryasurya.franchiso.ui.detail
 
+import android.R
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.NonNull
+import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aryasurya.franchiso.MainActivity
-import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.entity.FranchiseData
-import com.aryasurya.franchiso.data.entity.User
-import com.aryasurya.franchiso.data.session.SessionManager
+import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.ActivityDetailBinding
-import com.aryasurya.franchiso.ui.addfranchise.TypeFranchiseAdapter
+import com.aryasurya.franchiso.databinding.BottomSheetBinding
 import com.aryasurya.franchiso.ui.listimage.ListImageActivity
 import com.aryasurya.franchiso.utils.formatNumber
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -31,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
         val franchiseId = intent.getStringExtra("franchiseId")
 
 //        Log.d("DetailActivity", "Received franchiseId: $franchiseId")
+        binding.overlayLoading.visibility = View.VISIBLE
         val db = FirebaseFirestore.getInstance()
         val userDocument = db.collection("franchises").document(franchiseId!!)
         userDocument.get()
@@ -73,7 +81,13 @@ class DetailActivity : AppCompatActivity() {
                         // == TYPE FRANCHISE
                         val franchiseTypes = franchiseData.franchiseTypes
 //                        Log.d("rvApp", "onCreate: $franchiseTypes")
-                        adapter = FranchiseItemAdapter(franchiseTypes)
+                        adapter = FranchiseItemAdapter(franchiseTypes) { clickedItem ->
+
+                            // Ketika item diklik, tampilkan modal bottom sheet dan tampilkan informasi yang diperlukan
+                            val modalBottomSheet = ModalBottomSheet(clickedItem)
+                            modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+
+                        }
                         binding.rvTypeFranchise.adapter = adapter
 
                         val imageLayoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -111,14 +125,56 @@ class DetailActivity : AppCompatActivity() {
                             intent.data = Uri.parse(url)
                             startActivity(intent)
                         }
+                        binding.overlayLoading.visibility = View.GONE
                     }
                 } else {
+                    binding.overlayLoading.visibility = View.GONE
                     // Dokumen tidak ditemukan di Firestore
                 }
             }
             .addOnFailureListener { exception ->
+                binding.overlayLoading.visibility = View.GONE
                 // Handle kesalahan saat mengambil data dari Firestore
                 Log.e("LoginActivity", "Error getting user document", exception)
             }
+    }
+}
+
+class ModalBottomSheet(private val clickedItem: FranchiseItem) : BottomSheetDialogFragment() {
+
+    private var _binding: BottomSheetBinding? = null
+    private val binding get() = _binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = BottomSheetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.tvTypeInp.text = clickedItem.type
+        binding.tvFacilityInp.text = clickedItem.facility
+        binding.tvPriceInp.text = clickedItem.price
+
+        dialog?.setOnShowListener {
+            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 0.6f
+        }
+
+        // Set alpha ke 1.0 saat bottom sheet ditutup
+        dialog?.setOnDismissListener {
+            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 1.0f
+        }
+
+
+        // Tambahkan informasi lain yang diperlukan sesuai kebutuhan
+    }
+
+
+    companion object {
+        const val TAG = "ModalBottomSheet"
     }
 }

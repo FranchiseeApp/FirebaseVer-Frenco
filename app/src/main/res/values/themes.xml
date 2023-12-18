@@ -3,7 +3,21 @@
     <style name="Base.Theme.Franchiso" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>-->
     </style>
 
     <style name="Theme.Franchiso" parent="Base.Theme.Franchiso" />
+
+    <style name="YourBottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:backgroundDimAmount">0.5</item> <!-- Nilai antara 0 (tidak ada efek gelap) hingga 1 (gelap sepenuhnya) -->
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:backgroundDimAmount">0.5</item> <!-- Atur opasitas latar belakang -->
+
+    </style>
+
+<!--    <style name="ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">-->
+<!--        <item name="android:navigationBarColor" tools:ignore="NewApi">@android:color/transparent</item>-->
+<!--    </style>-->
 </resources>
