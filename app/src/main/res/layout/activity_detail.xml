@@ -58,7 +58,7 @@
             android:text="+1"
             android:background="@color/black"
             android:clickable="true"
-            android:alpha="0.5"
+            android:alpha="0.7"
             android:textSize="27sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/smallImage2"
@@ -111,6 +111,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_type_franchises"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="21dp"
             tools:listitem="@layout/item_type_detail" />
 
         <TextView

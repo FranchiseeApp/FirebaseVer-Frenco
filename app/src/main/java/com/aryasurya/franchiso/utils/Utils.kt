@@ -12,6 +12,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.text.DateFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -19,6 +20,17 @@ import java.util.Locale
 private const val MAXIMAL_SIZE = 1000000
 private const val FILENAME_FORMAT = "yyyMMdd_HHmmss"
 private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
+
+fun formatNumber(numberString: String): String {
+    return try {
+        val number = numberString.toInt()
+        val formatter = NumberFormat.getNumberInstance(Locale("id", "ID"))
+        formatter.format(number.toLong())
+    } catch (e: NumberFormatException) {
+        // Tangani kesalahan jika format String tidak sesuai dengan Integer
+        "Invalid Number"
+    }
+}
 
 fun createCustomTempFile(context: Context): File {
     val filesDir = context.externalCacheDir
