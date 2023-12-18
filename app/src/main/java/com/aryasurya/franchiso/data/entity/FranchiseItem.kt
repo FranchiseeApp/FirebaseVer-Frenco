@@ -40,8 +40,9 @@ data class FranchiseData(
     val category: String = "",
     val phoneNumber: String = "",
     val franchiseTypes: List<FranchiseItem> = emptyList(),
-    val images: List<String> = emptyList() // atau model lain untuk gambar
+    val images: List<String> = emptyList(), // atau model lain untuk gambar
+    var documentId: String = "",
 ) {
     // Konstruktor tanpa argumen
-    constructor() : this("", "", "", "", "", "", emptyList(), emptyList())
+    constructor() : this("", "", "", "", "", "", emptyList(), emptyList(), "")
 }

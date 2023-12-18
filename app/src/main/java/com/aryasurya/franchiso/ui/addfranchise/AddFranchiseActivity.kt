@@ -122,7 +122,8 @@ class AddFranchiseActivity : AppCompatActivity() {
                     category = franchiseCategory,
                     phoneNumber = franchisePhoneNumber,
                     franchiseTypes = franchiseTypes,
-                    images = imageUrls // Gunakan URI gambar yang diunggah ke Firebase Storage
+                    images = imageUrls,
+
                 )
 
                 // Panggil fungsi untuk menyimpan data ke Firestore
@@ -137,6 +138,10 @@ class AddFranchiseActivity : AppCompatActivity() {
 
         franchisesCollection.add(franchiseData)
             .addOnSuccessListener { documentReference ->
+                val uploadedFranchiseId = documentReference.id // Dapatkan ID dokumen yang baru saja ditambahkan
+                franchiseData.documentId = uploadedFranchiseId
+
+                updateDocumentInFirestore(uploadedFranchiseId)
                 Log.d("Upload Franchise", "DocumentSnapshot added with ID: ${documentReference.id}")
                 Toast.makeText(this, "Franchise data uploaded successfully!", Toast.LENGTH_SHORT).show()
                 binding.overlayLoading.visibility = View.GONE
@@ -149,6 +154,28 @@ class AddFranchiseActivity : AppCompatActivity() {
                 // Lakukan tindakan untuk menangani kegagalan unggah data
                 binding.overlayLoading.visibility = View.GONE
             }
+    }
+
+    private fun updateDocumentInFirestore(documentId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val franchisesCollection = db.collection("franchises")
+
+        // Buat objek HashMap yang berisi data yang ingin diperbarui
+        val updatedData = mapOf(
+            "documentId" to documentId // Field yang akan diperbarui
+        )
+
+        // Lakukan pembaruan data di Firestore
+        franchisesCollection.document(documentId) // Dokumen yang akan diperbarui
+            .update(updatedData) // Lakukan update dengan data yang baru
+//            .addOnSuccessListener {
+//                Log.d("Update Franchise", "DocumentSnapshot successfully updated!")
+//                // Tampilkan pesan sukses atau lakukan tindakan lainnya
+//            }
+//            .addOnFailureListener { e ->
+//                Log.w("Update Franchise", "Error updating document", e)
+//                // Handle error jika gagal melakukan pembaruan data
+//            }
     }
 
     private fun uploadImagesToFirebaseStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {

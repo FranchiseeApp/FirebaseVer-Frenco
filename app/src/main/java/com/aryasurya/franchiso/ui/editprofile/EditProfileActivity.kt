@@ -33,7 +33,6 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var viewModel: UserViewModel
     private lateinit var sessionManager: SessionManager
 
-
     // CEK PERMISSION IMAGE
     private var currentImageUri: Uri? = null
 
@@ -115,8 +114,6 @@ class EditProfileActivity : AppCompatActivity() {
         val storageRef = storage.reference
         val imagesRef = storageRef.child("profile_photos")
 
-
-
         val timestamp = System.currentTimeMillis() // Dapatkan timestamp saat ini
         val fileName = "profile_$timestamp.jpg"
 
@@ -141,10 +138,8 @@ class EditProfileActivity : AppCompatActivity() {
                 viewModel.updateSpecificUserData(userId, updatedFields) { success ->
                     if (success) {
                         // Berhasil memperbarui data pengguna
-                        // Lakukan tindakan yang sesuai, seperti menampilkan pesan atau update UI
-
-                        sessionManager.updateSessionName(name) // Contoh fungsi untuk memperbarui data nama pengguna
-                        sessionManager.updateSessionNoTel(noTel) // Contoh fungsi untuk memperbarui data nomor telepon
+                        sessionManager.updateSessionName(name)
+                        sessionManager.updateSessionNoTel(noTel)
                         sessionManager.updateSessionGender(gender)
                         sessionManager.updateSessionPhotoProfile(imageUrl)
 
@@ -165,7 +160,6 @@ class EditProfileActivity : AppCompatActivity() {
             // Gagal mengunggah foto
             Log.e("Firebase Storage", "Error uploading image: $exception")
         }
-
 
     }
 
