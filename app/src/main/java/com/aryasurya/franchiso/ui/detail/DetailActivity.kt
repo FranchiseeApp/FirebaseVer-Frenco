@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -19,6 +21,7 @@ import com.aryasurya.franchiso.data.entity.FranchiseData
 import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.ActivityDetailBinding
 import com.aryasurya.franchiso.databinding.BottomSheetBinding
+import com.aryasurya.franchiso.databinding.BottomSheetOptionsBinding
 import com.aryasurya.franchiso.ui.listimage.ListImageActivity
 import com.aryasurya.franchiso.utils.formatNumber
 import com.bumptech.glide.Glide
@@ -36,6 +39,16 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val franchiseId = intent.getStringExtra("franchiseId")
+
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true) // Tampilkan tombol kembali
+            setDisplayShowHomeEnabled(true)
+            // Tambahkan aksi saat tombol kembali diklik
+            toolbar.setNavigationOnClickListener { onBackPressed() }
+        }
 
 //        Log.d("DetailActivity", "Received franchiseId: $franchiseId")
         binding.overlayLoading.visibility = View.VISIBLE
@@ -138,6 +151,24 @@ class DetailActivity : AppCompatActivity() {
                 Log.e("LoginActivity", "Error getting user document", exception)
             }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(com.aryasurya.franchiso.R.menu.menu_detail, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            com.aryasurya.franchiso.R.id.action_more -> {
+                // Aksi yang ingin Anda lakukan saat tombol "More" ditekan
+                val modalBottomSheet = ModalBottomSheetOptions()
+                modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+                true
+            }
+            // Handle item lainnya jika ada
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
 
 class ModalBottomSheet(private val clickedItem: FranchiseItem) : BottomSheetDialogFragment() {
@@ -168,9 +199,38 @@ class ModalBottomSheet(private val clickedItem: FranchiseItem) : BottomSheetDial
         dialog?.setOnDismissListener {
             (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 1.0f
         }
+    }
 
 
-        // Tambahkan informasi lain yang diperlukan sesuai kebutuhan
+    companion object {
+        const val TAG = "ModalBottomSheet"
+    }
+}
+
+class ModalBottomSheetOptions : BottomSheetDialogFragment() {
+
+    private var _binding: BottomSheetOptionsBinding? = null
+    private val binding get() = _binding!!
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = BottomSheetOptionsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        dialog?.setOnShowListener {
+            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 0.6f
+        }
+
+        // Set alpha ke 1.0 saat bottom sheet ditutup
+        dialog?.setOnDismissListener {
+            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 1.0f
+        }
     }
 
 

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:id="@+id/mainLayout">
 
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,7 +15,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.detail.DetailActivity">
+            tools:context=".ui.detail.DetailActivity"
+            android:layout_marginTop="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/bigImage"
@@ -145,6 +148,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
+
             <Button
                 android:id="@+id/btn_wa"
                 android:layout_width="0dp"
@@ -157,6 +161,21 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Detail"
+            app:titleTextColor="@android:color/white" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!-- Loading progress bar -->
     <FrameLayout

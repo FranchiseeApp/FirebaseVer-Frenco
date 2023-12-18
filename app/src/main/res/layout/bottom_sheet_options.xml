@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom Sheet  -->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/standard_bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bottom_sheet_options"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_share"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="Share"
+            android:padding="14dp"
+            android:textSize="18sp"
+            app:icon="@drawable/baseline_share_24"
+            app:iconPadding="16dp"
+            app:iconSize="24dp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_link"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="Get Link"
+            android:textSize="18sp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
+            app:icon="@drawable/baseline_link_24"
+            app:iconPadding="16dp"
+            app:iconSize="24dp"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_share" />
+
+        <Button
+            android:id="@+id/btn_edit"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="Edit Franchise Data"
+            android:textSize="18sp"
+            app:icon="@drawable/baseline_edit_24"
+            app:iconPadding="16dp"
+            app:iconSize="24dp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_link" />
+
+        <Button
+            android:id="@+id/btn_delete"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="Delete"
+            android:textSize="18sp"
+            app:icon="@drawable/baseline_delete_24"
+            app:iconPadding="16dp"
+            app:iconSize="24dp"
+            android:paddingStart="21dp"
+            android:paddingEnd="21dp"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_edit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
