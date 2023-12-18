@@ -14,6 +14,7 @@ import com.aryasurya.franchiso.data.entity.User
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.databinding.ActivityDetailBinding
 import com.aryasurya.franchiso.ui.addfranchise.TypeFranchiseAdapter
+import com.aryasurya.franchiso.ui.listimage.ListImageActivity
 import com.aryasurya.franchiso.utils.formatNumber
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
                 if (documentSnapshot.exists()) {
                     val franchiseData = documentSnapshot.toObject(FranchiseData::class.java)
                     if (franchiseData != null) {
-//                        Log.d("detailData", "$franchiseData")
+                        Log.d("detailData", "$franchiseData")
 
 
                         val imagesFranchise = franchiseData.images
@@ -46,6 +47,13 @@ class DetailActivity : AppCompatActivity() {
                         Glide.with(this).load(imagesFranchise[1]).into(binding.smallImage1)
                         Glide.with(this).load(imagesFranchise[2]).into(binding.smallImage2)
                         Glide.with(this).load(imagesFranchise[3]).into(binding.smallImage3)
+
+                        binding.btnLoadMore.setOnClickListener {
+                            val intent = Intent(this@DetailActivity, ListImageActivity::class.java)
+                            intent.putExtra("franchiseId", franchiseData.documentId)
+
+                            startActivity(intent)
+                        }
 
 
                         Log.d("imagesF", "onCreate: ${imagesFranchise.size}")
