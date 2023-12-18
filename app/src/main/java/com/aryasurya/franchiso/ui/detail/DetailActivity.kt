@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryasurya.franchiso.data.entity.FranchiseData
@@ -22,6 +23,8 @@ import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.ActivityDetailBinding
 import com.aryasurya.franchiso.databinding.BottomSheetBinding
 import com.aryasurya.franchiso.databinding.BottomSheetOptionsBinding
+import com.aryasurya.franchiso.ui.bottomsheet.ModalBottomSheet
+import com.aryasurya.franchiso.ui.bottomsheet.ModalBottomSheetOptions
 import com.aryasurya.franchiso.ui.listimage.ListImageActivity
 import com.aryasurya.franchiso.utils.formatNumber
 import com.bumptech.glide.Glide
@@ -33,12 +36,14 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private lateinit var adapter: FranchiseItemAdapter
+
+    private var franchiseId: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val franchiseId = intent.getStringExtra("franchiseId")
+        franchiseId = intent.getStringExtra("franchiseId")
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -161,8 +166,10 @@ class DetailActivity : AppCompatActivity() {
         return when (item.itemId) {
             com.aryasurya.franchiso.R.id.action_more -> {
                 // Aksi yang ingin Anda lakukan saat tombol "More" ditekan
-                val modalBottomSheet = ModalBottomSheetOptions()
-                modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+                franchiseId?.let { id ->
+                    val modalBottomSheet = ModalBottomSheetOptions(id)
+                    modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
+                }
                 true
             }
             // Handle item lainnya jika ada
@@ -171,70 +178,3 @@ class DetailActivity : AppCompatActivity() {
     }
 }
 
-class ModalBottomSheet(private val clickedItem: FranchiseItem) : BottomSheetDialogFragment() {
-
-    private var _binding: BottomSheetBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = BottomSheetBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.tvTypeInp.text = clickedItem.type
-        binding.tvFacilityInp.text = clickedItem.facility
-        binding.tvPriceInp.text = clickedItem.price
-
-        dialog?.setOnShowListener {
-            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 0.6f
-        }
-
-        // Set alpha ke 1.0 saat bottom sheet ditutup
-        dialog?.setOnDismissListener {
-            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 1.0f
-        }
-    }
-
-
-    companion object {
-        const val TAG = "ModalBottomSheet"
-    }
-}
-
-class ModalBottomSheetOptions : BottomSheetDialogFragment() {
-
-    private var _binding: BottomSheetOptionsBinding? = null
-    private val binding get() = _binding!!
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = BottomSheetOptionsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        dialog?.setOnShowListener {
-            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 0.6f
-        }
-
-        // Set alpha ke 1.0 saat bottom sheet ditutup
-        dialog?.setOnDismissListener {
-            (requireActivity() as? AppCompatActivity)?.findViewById<View>(R.id.content)?.alpha = 1.0f
-        }
-    }
-
-
-    companion object {
-        const val TAG = "ModalBottomSheet"
-    }
-}
