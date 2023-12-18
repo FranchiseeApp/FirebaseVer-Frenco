@@ -71,6 +71,11 @@ class HomeFragment : Fragment() {
         loadData()
 
     }
+    override fun onResume() {
+        super.onResume()
+        // Memuat data setiap kali fragment di-resume
+        loadData()
+    }
 
     private fun loadData() {
 
