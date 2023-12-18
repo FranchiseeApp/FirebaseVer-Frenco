@@ -28,6 +28,7 @@ import com.aryasurya.franchiso.databinding.ActivityAddFranchiseBinding
 import com.aryasurya.franchiso.ui.addfranchise.addtype.AddTypeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 
@@ -43,11 +44,21 @@ class AddFranchiseActivity : AppCompatActivity() {
     private val selectedImages = mutableListOf<Uri>()
     private lateinit var imageAdapter: ImageAdapter
 
+    private var franchiseId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddFranchiseBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        franchiseId = intent.getStringExtra("franchiseId")
+
+        franchiseId?.let { id ->
+            // Jika franchiseId tidak null, akses data dari Firebase
+//            fetchDataFromFirebase(id)
+        }
+
+        Log.d("AddFranchiseActivity", "fId:  $franchiseId")
 
         val items = listOf("Food", "Drink")
         val adapterCategory = ArrayAdapter(this@AddFranchiseActivity, R.layout.text_type_franchise, items)
@@ -97,9 +108,6 @@ class AddFranchiseActivity : AppCompatActivity() {
             // Dapatkan daftar tipe franchisenya dari adapter
             val franchiseTypes = adapter.getItems()
 
-            // Dapatkan daftar URI gambar dari adapter atau variabel lain
-            val imageUris = selectedImages.toList()
-
 
             if (franchiseTypes.isNotEmpty()) {
                 val textColorPrimary = getColorFromAttribute(android.R.attr.textColorPrimary)
@@ -118,7 +126,12 @@ class AddFranchiseActivity : AppCompatActivity() {
                     )
 
                     // Panggil fungsi untuk menyimpan data ke Firestore
-                    uploadDataToFirebase(franchiseData)
+                    if (franchiseId == null) {
+                        uploadDataToFirebase(franchiseData)
+                    } else {
+//                        val franchiseMap = convertFranchiseDataToMap(franchiseData)
+//                        updateDataToFirebase(franchiseId!!, franchiseMap)
+                    }
                 }
             } else {
                 binding.overlayLoading.visibility = View.GONE
@@ -128,19 +141,90 @@ class AddFranchiseActivity : AppCompatActivity() {
         }
     }
 
+//    private fun fetchDataFromFirebase(franchiseId: String) {
+//        binding.overlayLoading.visibility = View.VISIBLE
+//        // Lakukan akses ke Firestore untuk mendapatkan data franchise sesuai dengan franchiseId
+//        val db = FirebaseFirestore.getInstance()
+//        val franchiseDocument = db.collection("franchises").document(franchiseId)
+//
+//        franchiseDocument.get()
+//            .addOnSuccessListener { document ->
+//                if (document.exists()) {
+//
+//                    // Dokumen franchise ditemukan, isi formulir dengan data yang ada
+//                    val franchiseData = document.toObject(FranchiseData::class.java)
+//                    franchiseData?.let {
+//                        // Isi formulir dengan data yang didapatkan dari Firestore
+//                        binding.tlName.editText?.setText(it.name)
+//                        binding.tlAddress.editText?.setText(it.address)
+//                        binding.tlDesc.editText?.setText(it.description)
+//                        binding.autoCompleteTextView.setText(it.category)
+//                        binding.tlWa.editText?.setText(it.phoneNumber)
+//
+//                        // Isi daftar tipe franchise ke adapter jika ada
+//                        adapter.setItems(it.franchiseTypes)
+//
+//                        val imageUris = it.images.map { imageUrl ->
+//                            Uri.parse(imageUrl)
+//                        }
+//                        // Isi daftar gambar ke adapter jika ada
+//                        imageAdapter.setImageList(imageUris)
+//                        binding.overlayLoading.visibility = View.GONE
+//                    }
+//                } else {
+//                    binding.overlayLoading.visibility = View.GONE
+//                    Log.d("FetchData", "No such document")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                binding.overlayLoading.visibility = View.GONE
+//                Log.d("FetchData", "get failed with ", exception)
+//            }
+//    }
+
+//    private fun updateDataToFirebase(franchiseId: String, updatedFields: Map<String, Any>) {
+//        binding.overlayLoading.visibility = View.VISIBLE
+//        val db = FirebaseFirestore.getInstance()
+//        val franchisesCollection = db.collection("franchises")
+//
+//        val franchiseDocument = franchisesCollection.document(franchiseId)
+//
+//        franchiseDocument.update(updatedFields)
+//            .addOnSuccessListener {
+//                Log.d("Update Franchise", "DocumentSnapshot updated with ID: $franchiseId")
+//                Toast.makeText(this, "Update franchise data successfully!", Toast.LENGTH_SHORT).show()
+//                binding.overlayLoading.visibility = View.GONE
+//                finish()
+//            }
+//            .addOnFailureListener { e ->
+//                Log.w("Update Franchise", "Error updating document", e)
+//                Toast.makeText(this, "Failed to update franchise data!", Toast.LENGTH_SHORT).show()
+//                binding.overlayLoading.visibility = View.GONE
+//            }
+//    }
+//    private fun convertFranchiseDataToMap(franchiseData: FranchiseData): Map<String, Any> {
+//        val franchiseMap = mutableMapOf<String, Any>()
+//        franchiseMap["name"] = franchiseData.name
+//        franchiseMap["address"] = franchiseData.address
+//        franchiseMap["description"] = franchiseData.description
+//        franchiseMap["category"] = franchiseData.category
+//        franchiseMap["phoneNumber"] = franchiseData.phoneNumber
+//
+//        return franchiseMap
+//    }
     private fun uploadDataToFirebase(franchiseData: FranchiseData) {
         val db = FirebaseFirestore.getInstance()
         val franchisesCollection = db.collection("franchises")
 
-
-
+        // Jika franchiseId null atau kosong, gunakan add() untuk membuat dokumen baru
         franchisesCollection.add(franchiseData)
             .addOnSuccessListener { documentReference ->
                 val uploadedFranchiseId = documentReference.id // Dapatkan ID dokumen yang baru saja ditambahkan
                 franchiseData.documentId = uploadedFranchiseId
 
                 updateDocumentInFirestore(uploadedFranchiseId)
-                Log.d("Upload Franchise", "DocumentSnapshot added with ID: ${documentReference.id}")
+
+                Log.d("Upload Franchise", "DocumentSnapshot added with ID: $uploadedFranchiseId")
                 Toast.makeText(this, "Franchise data uploaded successfully!", Toast.LENGTH_SHORT).show()
                 binding.overlayLoading.visibility = View.GONE
                 finish()
@@ -149,9 +233,9 @@ class AddFranchiseActivity : AppCompatActivity() {
                 Log.w("Upload Franchise", "Error adding document", e)
                 // Handle error jika data gagal diunggah
                 Toast.makeText(this, "Failed to upload franchise data!", Toast.LENGTH_SHORT).show()
-                // Lakukan tindakan untuk menangani kegagalan unggah data
                 binding.overlayLoading.visibility = View.GONE
             }
+
     }
 
     private fun updateDocumentInFirestore(documentId: String) {

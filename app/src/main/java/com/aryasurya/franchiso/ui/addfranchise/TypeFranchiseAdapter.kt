@@ -57,6 +57,11 @@ class TypeFranchiseAdapter(
         }
     }
 
+    fun setItems(itemsAdd: List<FranchiseItem>) {
+        items.addAll(itemsAdd) // Tambahkan item baru ke dalam daftar
+        notifyDataSetChanged() // Beritahu adapter bahwa ada perubahan data
+    }
+
     fun removeItem(position: Int) {
         if (position != RecyclerView.NO_POSITION && position < items.size) {
             items.removeAt(position)

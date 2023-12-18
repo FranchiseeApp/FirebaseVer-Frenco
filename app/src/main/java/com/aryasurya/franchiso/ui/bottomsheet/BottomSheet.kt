@@ -1,6 +1,7 @@
 package com.aryasurya.franchiso.ui.bottomsheet
 
 import android.R
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.BottomSheetBinding
 import com.aryasurya.franchiso.databinding.BottomSheetOptionsBinding
+import com.aryasurya.franchiso.ui.addfranchise.AddFranchiseActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -68,6 +70,12 @@ class ModalBottomSheetOptions(private val franchiseId: String) : BottomSheetDial
 
         binding.btnDelete.setOnClickListener {
             showDeleteConfirmationDialog()
+        }
+
+        binding.btnEdit.setOnClickListener {
+//            val intent = Intent(requireContext(), AddFranchiseActivity::class.java)
+//            intent.putExtra("franchiseId", franchiseId)
+//            startActivity(intent)
         }
 
         dialog?.setOnShowListener {

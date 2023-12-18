@@ -43,6 +43,12 @@ class ImageAdapter(private val imageList: MutableList<Uri>) : RecyclerView.Adapt
         return imageList.size
     }
 
+    fun setImageList(images: List<Uri>) {
+        imageList.clear() // Bersihkan daftar gambar sebelum menambah yang baru
+        imageList.addAll(images) // Tambahkan gambar baru ke dalam daftar
+        notifyDataSetChanged() // Beritahu adapter bahwa ada perubahan data
+    }
+
     private fun showDeletePopupMenu(view: View, position: Int) {
         val popupMenu = PopupMenu(view.context, view)
         popupMenu.menuInflater.inflate(R.menu.menu_delete_cancel, popupMenu.menu)
