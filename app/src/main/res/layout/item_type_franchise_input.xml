@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Type Franchise"/>
+            android:text="@string/type_franchise"/>
 
         <TextView
             android:id="@+id/input_type_franchise"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Facility"
+            android:text="@string/facility"
             android:layout_marginTop="14dp"/>
 
         <TextView
@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Price"
+            android:text="@string/price"
             android:layout_marginTop="14dp"/>
 
         <TextView

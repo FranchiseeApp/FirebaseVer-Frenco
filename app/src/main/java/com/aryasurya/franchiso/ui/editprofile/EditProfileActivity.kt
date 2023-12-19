@@ -95,7 +95,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding.tiNumberTel.editText?.setText(user?.noTel)
 //        currentImageUri = user?.photoProfileUrl?.toUri()
         Glide.with(this).load(user?.photoProfileUrl).into(binding.ivProfile)
-        val genderOptions = arrayOf("Male", "Female")
+        val genderOptions = arrayOf(getString(R.string.male), getString(R.string.female))
 
         // Atur adapter untuk AutoCompleteTextView
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, genderOptions)

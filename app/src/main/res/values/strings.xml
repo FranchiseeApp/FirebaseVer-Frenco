@@ -91,4 +91,56 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="edit_account">Edit Account</string>
+    <string name="change_language">Change Language</string>
+    <string name="logout">Logout</string>
+    <string name="select_language">Select Language</string>
+    <string name="let_s_fill_form_for_your_franchise">Let\'s fill form for your franchise</string>
+    <string name="name_franchise">Name Franchise</string>
+    <string name="address">Address</string>
+    <string name="description">Description</string>
+    <string name="choose_category_franchise">Choose category franchise</string>
+    <string name="number_whatsapp">Number whatsapp</string>
+    <string name="type_franchise">Type Franchise</string>
+    <string name="add_packet">Add Packet</string>
+    <string name="image_franchise">Image Franchise</string>
+    <string name="add_image">Add Image</string>
+    <string name="save">Save</string>
+    <string name="type_of_franchise">Type of Franchise</string>
+    <string name="facility">Facility</string>
+    <string name="price">Price</string>
+    <string name="_1">+1</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="no_telephone">No Telephone</string>
+    <string name="gender">Gender</string>
+    <string name="register">Register</string>
+    <string name="login">LOGIN</string>
+    <string name="hi_welcome">Hi! Welcome</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login_btn" translatable="false">Login</string>
+    <string name="not_have_account">Not have account?</string>
+    <string name="or">Or</string>
+    <string name="login_with_google">Login with Google</string>
+    <string name="register_title">REGISTER</string>
+    <string name="let_s_join_us">Let\'s join us!</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register_btn">Register</string>
+    <string name="have_any_account">Have any account?</string>
+    <string name="login_here">Login here</string>
+    <string name="register_with_google">Register with Google</string>
+    <string name="type_">Type :</string>
+    <string name="facility_">Facility :</string>
+    <string name="price_">Price :</string>
+    <string name="share">Share</string>
+    <string name="get_link">Get Link</string>
+    <string name="edit_franchise_data">Edit Franchise Data</string>
+    <string name="delete">Delete</string>
+    <string name="select_your_preferred_language">Select your preferred language</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>

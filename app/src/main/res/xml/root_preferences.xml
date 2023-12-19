@@ -2,15 +2,15 @@
 
     <Preference
         app:key="edit_account"
-        app:title="Edit Account"
+        app:title="@string/edit_account"
         app:icon="@drawable/baseline_edit_24" />
     <ListPreference
         app:key="pref_key_language"
-        app:title="Change Language"
+        app:title="@string/change_language"
         app:entries="@array/language_options"
         app:entryValues="@array/language_values"
-        app:summary="Select your preferred language"
-        app:dialogTitle="Select Language"
+        app:summary="@string/select_your_preferred_language"
+        app:dialogTitle="@string/select_language"
         app:icon="@drawable/baseline_language_24"/>
     <ListPreference
         app:defaultValue="@string/pref_dark_follow_system"
@@ -29,7 +29,7 @@
 
     <Preference
         app:key="logout"
-        app:title="Logout"
+        app:title="@string/logout"
         app:icon="@drawable/baseline_exit_to_app_24" />
 
 </PreferenceScreen>

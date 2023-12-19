@@ -14,7 +14,7 @@
         android:textSize="24sp"
         android:layout_marginTop="14dp"
         android:textAlignment="center"
-        android:text="Type of Franchise"
+        android:text="@string/type_of_franchise"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,8 @@
             android:id="@+id/autoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none" />
+            android:inputType="none"
+            tools:ignore="LabelFor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:hint="Facility"
+        android:hint="@string/facility"
         app:endIconMode="clear_text"
         android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +64,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:hint="Price"
+        android:hint="@string/price"
         app:endIconMode="clear_text"
         android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +83,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:text="Save"
+        android:text="@string/save"
         android:layout_marginTop="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

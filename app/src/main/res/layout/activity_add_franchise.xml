@@ -23,7 +23,7 @@
                 android:textSize="24sp"
                 android:layout_marginTop="14dp"
                 android:textAlignment="center"
-                android:text="Let's fill form for your franchise"
+                android:text="@string/let_s_fill_form_for_your_franchise"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:hint="Name Franchise"
+                android:hint="@string/name_franchise"
                 app:endIconMode="clear_text"
                 android:layout_marginTop="28dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="14dp"
-                android:hint="Address"
+                android:hint="@string/address"
                 app:endIconMode="clear_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:hint="Description"
+                android:hint="@string/description"
                 app:endIconMode="clear_text"
                 android:layout_marginTop="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="14dp"
-                android:hint="Choose category franchise"
+                android:hint="@string/choose_category_franchise"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tl_desc">
@@ -103,7 +103,8 @@
                     android:id="@+id/autoCompleteTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    tools:ignore="LabelFor" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:hint="Number whatsapp"
+                android:hint="@string/number_whatsapp"
                 app:prefixText="+62"
                 app:endIconMode="clear_text"
                 android:layout_marginTop="14dp"
@@ -145,7 +146,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Type Franchise"
+                android:text="@string/type_franchise"
                 app:layout_constraintStart_toStartOf="@+id/tl_wa"
                 app:layout_constraintTop_toBottomOf="@id/line1" />
 
@@ -164,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Add Packet"
+                android:text="@string/add_packet"
                 app:icon="@drawable/baseline_add_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,7 +185,7 @@
                 android:id="@+id/tv_sec_image"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Image Franchise"
+                android:text="@string/image_franchise"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_add_img"
                 app:layout_constraintStart_toStartOf="@+id/tv_sec_type"
                 app:layout_constraintTop_toTopOf="@+id/btn_add_img" />
@@ -194,7 +195,7 @@
                 style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Image"
+                android:text="@string/add_image"
                 app:icon="@drawable/baseline_add_24"
                 app:layout_constraintEnd_toEndOf="@+id/tl_wa"
                 app:layout_constraintTop_toBottomOf="@+id/line2" />
@@ -215,7 +216,7 @@
                 android:id="@+id/btn_upload_data_franchise"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="@string/save"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rv_image_franchise"
