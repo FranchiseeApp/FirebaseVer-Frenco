@@ -135,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="21dp"
                 android:text="@string/register_btn"
+                style="@style/ButtonBackground"
                 app:layout_constraintEnd_toEndOf="@id/ti_confirm_password_register"
                 app:layout_constraintStart_toStartOf="@id/ti_confirm_password_register"
                 app:layout_constraintTop_toBottomOf="@+id/ti_confirm_password_register" />

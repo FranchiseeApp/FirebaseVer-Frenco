@@ -147,6 +147,7 @@ tools:context=".ui.editprofile.EditProfileActivity">
                 android:layout_height="wrap_content"
                 android:layout_marginTop="21dp"
                 android:text="@string/register"
+                style="@style/ButtonBackground"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/choose_gender"
