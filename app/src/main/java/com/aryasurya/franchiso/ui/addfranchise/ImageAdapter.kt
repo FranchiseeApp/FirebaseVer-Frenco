@@ -46,7 +46,6 @@ class ImageAdapter(private val imageList: MutableList<Uri>) : RecyclerView.Adapt
     fun setImageList(images: List<Uri>) {
         imageList.clear() // Bersihkan daftar gambar sebelum menambah yang baru
         imageList.addAll(images) // Tambahkan gambar baru ke dalam daftar
-        notifyDataSetChanged() // Beritahu adapter bahwa ada perubahan data
     }
 
     private fun showDeletePopupMenu(view: View, position: Int) {
@@ -71,6 +70,7 @@ class ImageAdapter(private val imageList: MutableList<Uri>) : RecyclerView.Adapt
     private fun deleteItem(position: Int) {
         imageList.removeAt(position)
         notifyItemRemoved(position)
+        notifyItemRangeChanged(position, imageList.size)
     }
 
 

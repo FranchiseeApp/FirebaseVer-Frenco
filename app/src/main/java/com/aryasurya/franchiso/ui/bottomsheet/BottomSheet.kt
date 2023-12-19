@@ -73,9 +73,11 @@ class ModalBottomSheetOptions(private val franchiseId: String) : BottomSheetDial
         }
 
         binding.btnEdit.setOnClickListener {
-//            val intent = Intent(requireContext(), AddFranchiseActivity::class.java)
-//            intent.putExtra("franchiseId", franchiseId)
-//            startActivity(intent)
+            dialog?.dismiss()
+            val intent = Intent(requireContext(), AddFranchiseActivity::class.java)
+            intent.putExtra("franchiseId", franchiseId)
+            startActivity(intent)
+
         }
 
         dialog?.setOnShowListener {

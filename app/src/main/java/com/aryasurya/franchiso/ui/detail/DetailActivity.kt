@@ -38,12 +38,14 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var adapter: FranchiseItemAdapter
 
     private var franchiseId: String? = null
+    private var modalBottomSheet: ModalBottomSheetOptions? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         franchiseId = intent.getStringExtra("franchiseId")
+        modalBottomSheet = franchiseId?.let { ModalBottomSheetOptions(it) }
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -161,15 +163,15 @@ class DetailActivity : AppCompatActivity() {
         menuInflater.inflate(com.aryasurya.franchiso.R.menu.menu_detail, menu)
         return true
     }
+    override fun onPause() {
+        super.onPause()
+        modalBottomSheet?.dismiss()
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             com.aryasurya.franchiso.R.id.action_more -> {
-                // Aksi yang ingin Anda lakukan saat tombol "More" ditekan
-                franchiseId?.let { id ->
-                    val modalBottomSheet = ModalBottomSheetOptions(id)
-                    modalBottomSheet.show(supportFragmentManager, ModalBottomSheet.TAG)
-                }
+                modalBottomSheet?.show(supportFragmentManager, ModalBottomSheet.TAG)
                 true
             }
             // Handle item lainnya jika ada
