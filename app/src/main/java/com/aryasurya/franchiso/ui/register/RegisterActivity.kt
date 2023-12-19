@@ -30,6 +30,16 @@ class RegisterActivity : AppCompatActivity() {
             finish()
         }
 
+        val toolbar = binding.toolbar
+        setSupportActionBar(toolbar)
+
+        // Tambahkan tombol kembali (tombol panah)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+            title = ""
+        }
+
         validEmail()
         matchPassword()
         activeButton()
@@ -96,6 +106,10 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
     private fun matchPassword() {
         val passwordLayout = binding.tiPasswordRegister
         val password = passwordLayout.editText
