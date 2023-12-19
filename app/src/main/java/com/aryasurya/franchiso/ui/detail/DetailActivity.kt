@@ -58,6 +58,36 @@ class DetailActivity : AppCompatActivity() {
         }
 
 //        Log.d("DetailActivity", "Received franchiseId: $franchiseId")
+
+        loadData()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(com.aryasurya.franchiso.R.menu.menu_detail, menu)
+        return true
+    }
+    override fun onPause() {
+        super.onPause()
+        modalBottomSheet?.dismiss()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            com.aryasurya.franchiso.R.id.action_more -> {
+                modalBottomSheet?.show(supportFragmentManager, ModalBottomSheet.TAG)
+                true
+            }
+            // Handle item lainnya jika ada
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun loadData() {
         binding.overlayLoading.visibility = View.VISIBLE
         val db = FirebaseFirestore.getInstance()
         val userDocument = db.collection("franchises").document(franchiseId!!)
@@ -157,26 +187,6 @@ class DetailActivity : AppCompatActivity() {
                 // Handle kesalahan saat mengambil data dari Firestore
                 Log.e("LoginActivity", "Error getting user document", exception)
             }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(com.aryasurya.franchiso.R.menu.menu_detail, menu)
-        return true
-    }
-    override fun onPause() {
-        super.onPause()
-        modalBottomSheet?.dismiss()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            com.aryasurya.franchiso.R.id.action_more -> {
-                modalBottomSheet?.show(supportFragmentManager, ModalBottomSheet.TAG)
-                true
-            }
-            // Handle item lainnya jika ada
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
 
