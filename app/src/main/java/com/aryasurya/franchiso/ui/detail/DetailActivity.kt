@@ -138,8 +138,8 @@ class DetailActivity : AppCompatActivity() {
 
                         // == BUTTON WA
                         binding.btnWa.setOnClickListener {
-                            val phoneNumber = "6287753231841"
-                            val url = "https://wa.me/$phoneNumber"
+                            val phoneNumber = franchiseData.phoneNumber
+                            val url = "https://wa.me/62$phoneNumber"
 
                             val intent = Intent(Intent.ACTION_VIEW)
                             intent.data = Uri.parse(url)
