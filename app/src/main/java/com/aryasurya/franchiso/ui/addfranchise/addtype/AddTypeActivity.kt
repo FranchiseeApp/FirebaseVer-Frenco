@@ -19,7 +19,13 @@ class AddTypeActivity : AppCompatActivity() {
         binding = ActivityAddTypeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val items = listOf("Store", "Stand", "Mini market")
+        val items = listOf(
+            "Stand",
+            "Store",
+            "Kios",
+            "Outlet",
+            "Resto",
+            "Mini market")
         val adapter = ArrayAdapter(this@AddTypeActivity, R.layout.text_type_franchise, items)
         binding.autoCompleteTextView.setAdapter(adapter)
 

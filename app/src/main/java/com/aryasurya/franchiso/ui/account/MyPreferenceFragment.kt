@@ -63,7 +63,7 @@ class MyPreferenceFragment : PreferenceFragmentCompat() {
         val languagePreference = findPreference<ListPreference>("pref_key_language")
         languagePreference?.setOnPreferenceChangeListener { _, newValue ->
             when (newValue) {
-                "en", "in", "sp" -> setAppLanguage(newValue.toString())
+                "en", "in" -> setAppLanguage(newValue.toString())
             }
             true
         }
