@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.ui.editprofile.EditProfileActivity
 import com.aryasurya.franchiso.ui.login.LoginActivity
 import com.aryasurya.franchiso.utils.DarkMode
+import java.util.Locale
 
 class MyPreferenceFragment : PreferenceFragmentCompat() {
 
@@ -58,6 +60,27 @@ class MyPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val languagePreference = findPreference<ListPreference>("pref_key_language")
+        languagePreference?.setOnPreferenceChangeListener { _, newValue ->
+            when (newValue) {
+                "en", "in", "sp" -> setAppLanguage(newValue.toString())
+            }
+            true
+        }
+
+    }
+
+    private fun setAppLanguage(language: String) {
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+
+        val resources = requireContext().resources
+        val configuration = resources.configuration
+        configuration.setLocale(locale)
+        resources.updateConfiguration(configuration, resources.displayMetrics)
+
+        // Restart activity agar perubahan bahasa dapat diterapkan
+        requireActivity().recreate()
     }
 
     private fun updateTheme(mode: Int): Boolean {
