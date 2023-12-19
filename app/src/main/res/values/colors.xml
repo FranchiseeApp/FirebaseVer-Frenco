@@ -3,7 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="seed">#ffffff</color>
+    <color name="toolbar_light">#FAF8FF</color>
+    <color name="toolbar_dark">#1C1C39</color>
     <color name="md_theme_light_shadow">#000000</color>
     <color name="md_theme_light_surfaceTint">#485D92</color>
     <color name="md_theme_light_inverseSurface">#E2E2E9</color>

@@ -37,6 +37,11 @@
         <item name="backgroundTint">@color/md_theme_light_onPrimaryContainer</item>
     </style>
 
+    <style name="Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="background">@color/toolbar_light</item>
+        <item name="titleTextColor">@android:color/black</item>
+    </style>
+
     <style name="YourBottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="android:backgroundDimAmount">0.5</item> <!-- Nilai antara 0 (tidak ada efek gelap) hingga 1 (gelap sepenuhnya) -->
     </style>
