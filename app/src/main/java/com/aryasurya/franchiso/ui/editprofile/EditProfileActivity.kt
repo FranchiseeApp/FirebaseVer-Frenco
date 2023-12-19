@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -70,11 +71,12 @@ class EditProfileActivity : AppCompatActivity() {
             val noTel = binding.tiNumberTel.editText?.text.toString()
             val gender = binding.chooseGender.editText?.text.toString()
 
+            Log.d("DataGambar", "onCreate: $currentImageUri ")
             if (user != null) {
                 currentImageUri?.let { it1 ->
-                    updateUserSpecificData(user.userId, name, noTel, gender,
-                        it1
-                    )
+                    updateUserSpecificData(user.userId, name, noTel, gender, it1)
+                } ?: run {
+                    updateUserSpecificData(user.userId, name, noTel, gender, Uri.EMPTY)
                 }
             }
         }
@@ -91,6 +93,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding.tiNameRegister.editText?.setText(user?.name)
         binding.tiEmailRegister.editText?.setText(user?.email)
         binding.tiNumberTel.editText?.setText(user?.noTel)
+//        currentImageUri = user?.photoProfileUrl?.toUri()
         Glide.with(this).load(user?.photoProfileUrl).into(binding.ivProfile)
         val genderOptions = arrayOf("Male", "Female")
 
@@ -109,59 +112,76 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun updateUserSpecificData(userId: String, name : String, noTel: String, gender : String, uri: Uri) {
-
+        binding.overlayLoading.visibility = View.VISIBLE
         val storage = Firebase.storage
         val storageRef = storage.reference
         val imagesRef = storageRef.child("profile_photos")
 
-        val timestamp = System.currentTimeMillis() // Dapatkan timestamp saat ini
-        val fileName = "profile_$timestamp.jpg"
+        if (uri == Uri.EMPTY) {
+            val updatedFields = mapOf(
+                "name" to name,
+                "noTel" to noTel,
+                "gender" to gender
+            )
 
-         // Ubah ini sesuai dengan URI foto yang ingin Anda unggah
-        val imageRef = imagesRef.child(fileName) // Ganti "profile.jpg" dengan nama file yang ingin Anda gunakan
+            viewModel.updateSpecificUserData(userId, updatedFields) { success ->
+                if (success) {
+                    // Berhasil memperbarui data pengguna
+                    sessionManager.updateSessionName(name)
+                    sessionManager.updateSessionNoTel(noTel)
+                    sessionManager.updateSessionGender(gender)
 
-        val uploadTask = imageRef.putFile(uri)
-        uploadTask.addOnSuccessListener {
-            // Foto berhasil diunggah
-            // Dapatkan URL unduhan gambar dari Firebase Storage
-            imageRef.downloadUrl.addOnSuccessListener { uri ->
-                // Dapatkan URL gambar dari 'uri'
-                val imageUrl = uri.toString()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Update data failed", Toast.LENGTH_SHORT).show()
+                }
+                binding.overlayLoading.visibility = View.GONE
+            }
+        } else {
+            // Lakukan pengunggahan foto dan perbarui data pengguna bersama dengan foto profil
+            val timestamp = System.currentTimeMillis()
+            val fileName = "profile_$timestamp.jpg"
+            val imageRef = imagesRef.child(fileName)
 
-                val updatedFields = mapOf(
-                    "name" to name,
-                    "noTel" to noTel,
-                    "gender" to gender,
-                    "photoProfileUrl" to imageUrl
-                )
-                // Gunakan imageUrl untuk menyimpan URL gambar ini ke database atau tempat penyimpanan data pengguna lainnya
-                viewModel.updateSpecificUserData(userId, updatedFields) { success ->
-                    if (success) {
-                        // Berhasil memperbarui data pengguna
-                        sessionManager.updateSessionName(name)
-                        sessionManager.updateSessionNoTel(noTel)
-                        sessionManager.updateSessionGender(gender)
-                        sessionManager.updateSessionPhotoProfile(imageUrl)
+            val uploadTask = imageRef.putFile(uri)
+            uploadTask.addOnSuccessListener {
+                imageRef.downloadUrl.addOnSuccessListener { uri ->
+                    val imageUrl = uri.toString()
 
-                        val accountFragment = supportFragmentManager.findFragmentByTag("AccountFragment") as AccountFragment?
-                        accountFragment?.updateSessionData(name, noTel, gender, imageUrl)
-                        finish()
-                    } else {
-                        // Gagal memperbarui data pengguna
-                        // Tampilkan pesan kesalahan kepada pengguna atau lakukan tindakan lainnya
-                        Toast.makeText(this, "Update data failed", Toast.LENGTH_SHORT).show()
+                    val updatedFields = mapOf(
+                        "name" to name,
+                        "noTel" to noTel,
+                        "gender" to gender,
+                        "photoProfileUrl" to imageUrl
+                    )
+
+                    viewModel.updateSpecificUserData(userId, updatedFields) { success ->
+                        if (success) {
+                            // Berhasil memperbarui data pengguna
+                            sessionManager.updateSessionName(name)
+                            sessionManager.updateSessionNoTel(noTel)
+                            sessionManager.updateSessionGender(gender)
+                            sessionManager.updateSessionPhotoProfile(imageUrl)
+
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Update data failed", Toast.LENGTH_SHORT).show()
+                        }
+                        binding.overlayLoading.visibility = View.GONE
                     }
+                }.addOnFailureListener { exception ->
+                    binding.overlayLoading.visibility = View.GONE
+                    // Gagal mendapatkan URL gambar
+                    Log.e("Firebase Storage", "Error getting download URL: $exception")
                 }
             }.addOnFailureListener { exception ->
-                // Gagal mendapatkan URL gambar
-                Log.e("Firebase Storage", "Error getting download URL: $exception")
+                binding.overlayLoading.visibility = View.GONE
+                // Gagal mengunggah foto
+                Log.e("Firebase Storage", "Error uploading image: $exception")
             }
-        }.addOnFailureListener { exception ->
-            // Gagal mengunggah foto
-            Log.e("Firebase Storage", "Error uploading image: $exception")
         }
-
     }
+
 
 
     private fun selectImage() {
