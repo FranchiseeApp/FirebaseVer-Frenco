@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Franchiso</string>
+    <string name="app_name">Frenco</string>
 
     <string name="home">Home</string>
     <string name="account">Account</string>
@@ -144,4 +144,5 @@
     <string name="select_your_preferred_language">Select your preferred language</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="list_image">List Image</string>
 </resources>

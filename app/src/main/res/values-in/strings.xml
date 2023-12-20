@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Franchiso</string>
+    <string name="app_name">Frenco</string>
 
     <string name="home">Beranda</string>
     <string name="account">Akun</string>
@@ -148,4 +148,5 @@
     <string name="select_your_preferred_language">Pilih bahasa yang Anda inginkan</string>
     <string name="male">Laki-laki</string>
     <string name="female">Perempuan</string>
+    <string name="list_image">List Gambar</string>
 </resources>
