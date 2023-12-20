@@ -10,7 +10,6 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.aryasurya.franchiso.R
-import com.aryasurya.franchiso.data.entity.FranchiseItem
 
 class ImageAdapter(private val imageList: MutableList<Uri>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
@@ -41,11 +40,6 @@ class ImageAdapter(private val imageList: MutableList<Uri>) : RecyclerView.Adapt
 
     override fun getItemCount(): Int {
         return imageList.size
-    }
-
-    fun setImageList(images: List<Uri>) {
-        imageList.clear() // Bersihkan daftar gambar sebelum menambah yang baru
-        imageList.addAll(images) // Tambahkan gambar baru ke dalam daftar
     }
 
     private fun showDeletePopupMenu(view: View, position: Int) {

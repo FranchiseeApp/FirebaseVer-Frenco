@@ -1,25 +1,19 @@
 package com.aryasurya.franchiso.ui.addfranchise
 
-import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.entity.FranchiseData
@@ -28,9 +22,7 @@ import com.aryasurya.franchiso.databinding.ActivityAddFranchiseBinding
 import com.aryasurya.franchiso.ui.addfranchise.addtype.AddTypeActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
-import java.io.ByteArrayOutputStream
 
 class AddFranchiseActivity : AppCompatActivity() {
 
@@ -231,12 +223,10 @@ class AddFranchiseActivity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val franchisesCollection = db.collection("franchises")
 
-        // Jika franchiseId null atau kosong, gunakan add() untuk membuat dokumen baru
         franchisesCollection.add(franchiseData)
             .addOnSuccessListener { documentReference ->
                 val uploadedFranchiseId = documentReference.id // Dapatkan ID dokumen yang baru saja ditambahkan
                 franchiseData.documentId = uploadedFranchiseId
-
                 updateDocumentInFirestore(uploadedFranchiseId)
 
                 Log.d("Upload Franchise", "DocumentSnapshot added with ID: $uploadedFranchiseId")
@@ -246,7 +236,6 @@ class AddFranchiseActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.w("Upload Franchise", "Error adding document", e)
-                // Handle error jika data gagal diunggah
                 Toast.makeText(this, "Failed to upload franchise data!", Toast.LENGTH_SHORT).show()
                 binding.overlayLoading.visibility = View.GONE
             }
@@ -262,17 +251,9 @@ class AddFranchiseActivity : AppCompatActivity() {
             "documentId" to documentId // Field yang akan diperbarui
         )
 
-        // Lakukan pembaruan data di Firestore
+        // pembaruan data di Firestore
         franchisesCollection.document(documentId) // Dokumen yang akan diperbarui
-            .update(updatedData) // Lakukan update dengan data yang baru
-//            .addOnSuccessListener {
-//                Log.d("Update Franchise", "DocumentSnapshot successfully updated!")
-//                // Tampilkan pesan sukses atau lakukan tindakan lainnya
-//            }
-//            .addOnFailureListener { e ->
-//                Log.w("Update Franchise", "Error updating document", e)
-//                // Handle error jika gagal melakukan pembaruan data
-//            }
+            .update(updatedData)
     }
 
     private fun uploadImagesToFirebaseStorage(images: List<Uri>, onComplete: (List<String>) -> Unit) {
@@ -290,7 +271,7 @@ class AddFranchiseActivity : AppCompatActivity() {
 
                 val uploadTask = fileRef.putFile(imageUri)
 
-                uploadTask.addOnSuccessListener { taskSnapshot ->
+                uploadTask.addOnSuccessListener {
                     // Jika berhasil diunggah, dapatkan URI unduhan
                     fileRef.downloadUrl.addOnSuccessListener { downloadUri ->
                         val imageUrl = downloadUri.toString()
@@ -302,10 +283,9 @@ class AddFranchiseActivity : AppCompatActivity() {
                             onComplete(imageUrls)
                         }
                     }
-                }.addOnFailureListener { exception ->
+                }.addOnFailureListener {
                     binding.overlayLoading.visibility = View.GONE
                     // Handle error jika gagal mengunggah gambar
-                    // Bisa saja melanjutkan atau membatalkan proses, tergantung pada kebutuhan aplikasi
                 }
             }
         } else {
@@ -413,7 +393,7 @@ class AddFranchiseActivity : AppCompatActivity() {
         startActivityForResult(intent, EDIT_ITEM_REQUEST_CODE)
     }
 
-    fun Context.getColorFromAttribute(attr: Int): Int {
+    private fun Context.getColorFromAttribute(attr: Int): Int {
         val typedValue = TypedValue()
         val theme = theme
         theme.resolveAttribute(attr, typedValue, true)

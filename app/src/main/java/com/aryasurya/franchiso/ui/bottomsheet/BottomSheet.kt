@@ -25,7 +25,7 @@ class ModalBottomSheet(private val clickedItem: FranchiseItem) : BottomSheetDial
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = BottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }

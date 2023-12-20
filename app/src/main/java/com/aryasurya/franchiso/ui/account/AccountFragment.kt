@@ -1,41 +1,24 @@
 package com.aryasurya.franchiso.ui.account
 
-import android.app.Activity
-import android.app.AlertDialog
 import android.app.ProgressDialog
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.fragment.app.viewModels
 import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.entity.User
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.databinding.FragmentAccountBinding
-import com.aryasurya.franchiso.ui.login.LoginActivity
-import com.aryasurya.franchiso.ui.login.UserViewModel
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.storage.FirebaseStorage
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-
 class AccountFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding
     private lateinit var sessionManager: SessionManager
-    private val viewModel: UserViewModel by viewModels()
     private lateinit var progressDialog: ProgressDialog
     private lateinit var photoProfile: ImageView
 
@@ -91,7 +74,7 @@ class AccountFragment : Fragment() {
         updateSessionData(refreshedUser?.name ?: "", refreshedUser?.noTel ?: "", refreshedUser?.gender ?: "", refreshedUser?.photoProfileUrl ?: "")
     }
 
-    fun updateSessionData(name: String, noTel: String, gender: String, imageUrl: String) {
+    private fun updateSessionData(name: String, noTel: String, gender: String, imageUrl: String) {
         sessionManager.updateSessionName(name)
         sessionManager.updateSessionNoTel(noTel)
         sessionManager.updateSessionGender(gender)

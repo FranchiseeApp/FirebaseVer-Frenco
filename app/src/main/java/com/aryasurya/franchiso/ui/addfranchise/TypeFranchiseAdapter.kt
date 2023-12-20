@@ -1,17 +1,10 @@
 package com.aryasurya.franchiso.ui.addfranchise
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
-import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.entity.FranchiseItem
 import com.aryasurya.franchiso.databinding.ItemTypeFranchiseInputBinding
-import com.aryasurya.franchiso.ui.addfranchise.addtype.AddTypeActivity
 
 
 class TypeFranchiseAdapter(
@@ -55,11 +48,6 @@ class TypeFranchiseAdapter(
             items[position] = item
             notifyItemChanged(position)
         }
-    }
-
-    fun setItems(itemsAdd: List<FranchiseItem>) {
-        items.addAll(itemsAdd) // Tambahkan item baru ke dalam daftar
-        notifyDataSetChanged() // Beritahu adapter bahwa ada perubahan data
     }
 
     fun removeItem(position: Int) {

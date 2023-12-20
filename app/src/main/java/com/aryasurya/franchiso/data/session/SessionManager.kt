@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.aryasurya.franchiso.data.entity.User
 
-class SessionManager(private val context: Context) {
+class SessionManager(context: Context) {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()

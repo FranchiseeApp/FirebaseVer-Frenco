@@ -22,7 +22,6 @@ import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.entity.User
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.databinding.ActivityEditProfileBinding
-import com.aryasurya.franchiso.ui.account.AccountFragment
 import com.aryasurya.franchiso.ui.login.UserViewModel
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase

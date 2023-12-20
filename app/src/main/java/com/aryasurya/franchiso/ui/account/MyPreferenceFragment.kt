@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.session.SessionManager
 import com.aryasurya.franchiso.ui.editprofile.EditProfileActivity

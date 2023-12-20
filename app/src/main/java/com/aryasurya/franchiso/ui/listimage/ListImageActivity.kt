@@ -1,18 +1,12 @@
 package com.aryasurya.franchiso.ui.listimage
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.aryasurya.franchiso.R
 import com.aryasurya.franchiso.data.entity.FranchiseData
 import com.aryasurya.franchiso.databinding.ActivityListImageBinding
-import com.aryasurya.franchiso.ui.detail.FranchiseItemAdapter
-import com.aryasurya.franchiso.utils.formatNumber
-import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ListImageActivity : AppCompatActivity() {

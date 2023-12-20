@@ -3,7 +3,6 @@ package com.aryasurya.franchiso.ui.listimage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aryasurya.franchiso.data.entity.FranchiseData
 import com.aryasurya.franchiso.databinding.ItemImageBinding
 import com.bumptech.glide.Glide
 
