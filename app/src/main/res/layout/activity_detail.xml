@@ -8,13 +8,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.detail.DetailActivity"
-            android:layout_marginTop="?attr/actionBarSize">
+            tools:context=".ui.detail.DetailActivity">
 
             <ImageView
                 android:id="@+id/bigImage"
