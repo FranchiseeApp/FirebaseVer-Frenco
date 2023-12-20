@@ -119,7 +119,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_type_franchises"
-                tools:listitem="@layout/item_type_detail" />
+                tools:listitem="@layout/item_type_detail"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:orientation="horizontal"/>
 
             <TextView
                 android:id="@+id/tv_desc"

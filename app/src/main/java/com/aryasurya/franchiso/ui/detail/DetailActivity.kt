@@ -119,7 +119,8 @@ class DetailActivity : AppCompatActivity() {
                         Log.d("imagesF", "onCreate: ${imagesFranchise.size}")
 
                         if (imagesFranchise.size <= 4) {
-                            binding.btnLoadMore.visibility = View.GONE
+                            binding.btnLoadMore.visibility = View.VISIBLE
+                            binding.btnLoadMore.text = "More"
                         } else {
                             binding.btnLoadMore.visibility = View.VISIBLE
                             val updateText = imagesFranchise.size - 4

@@ -27,6 +27,7 @@
     <string name="cancel">Batal</string>
     <string name="failed_to_get_camera">Gagal mendapatkan kamera</string>
     <string name="failed_to_get_image">Gagal mendapatkan gambar</string>
+    <string name="detail_photo">Gambar Detail</string>
 
     <!-- Night Mode Preferences -->
     <string name="pref_dark_title">Mode gelap</string>
