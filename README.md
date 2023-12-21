@@ -41,10 +41,10 @@ Frenco is an application that is connected to the Frency application which funct
 
 ### Languages and Tools
 <div>
-    <img align="left" alt="HTML5" width="26px" src="app/src/main/res/drawable/ic_kotlin.png" />
-    <img align="left" alt="CSS3" width="26px" src="app/src/main/res/drawable/ic_as.png" />
-    <img align="left" alt="Python" width="26px" src="app/src/main/res/drawable/ic_firebase.png"/> 
-    <img align="left" alt="C" width="26px" src="app/src/main/res/drawable/ic_github.png"/> 
+    <img align="left" alt="" width="26px" src="app/src/main/res/drawable/ic_kotlin.png" />
+    <img align="left" alt="" width="26px" src="app/src/main/res/drawable/ic_as.png" />
+    <img align="left" alt="" width="26px" src="app/src/main/res/drawable/ic_firebase.png"/> 
+    <img align="left" alt="" width="26px" src="app/src/main/res/drawable/ic_github.png"/> 
 </div>
 
 ---
