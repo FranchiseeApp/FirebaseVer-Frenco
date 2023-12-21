@@ -28,6 +28,12 @@
         app:title="@string/pref_notify_name" />
 
     <Preference
+        app:key="find_franchise"
+        app:title="@string/find_franchise"
+        app:summary="@string/find_your_dream_franchise"
+        app:icon="@drawable/baseline_manage_search_24" />
+
+    <Preference
         app:key="logout"
         app:title="@string/logout"
         app:icon="@drawable/baseline_exit_to_app_24" />

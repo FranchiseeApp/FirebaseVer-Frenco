@@ -149,4 +149,6 @@
     <string name="male">Laki-laki</string>
     <string name="female">Perempuan</string>
     <string name="list_image">List Gambar</string>
+    <string name="find_franchise">Temukan Franchise</string>
+    <string name="find_your_dream_franchise">Temukan franchise idamanmu</string>
 </resources>

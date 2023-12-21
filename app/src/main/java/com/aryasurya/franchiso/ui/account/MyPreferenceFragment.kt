@@ -1,6 +1,7 @@
 package com.aryasurya.franchiso.ui.account
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
@@ -67,6 +68,12 @@ class MyPreferenceFragment : PreferenceFragmentCompat() {
             true
         }
 
+        val findFranchisePreference: Preference? = findPreference("find_franchise")
+        findFranchisePreference?.setOnPreferenceClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://frency.site/"))
+            startActivity(intent)
+            true
+        }
     }
 
     private fun setAppLanguage(language: String) {

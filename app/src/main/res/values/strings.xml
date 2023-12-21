@@ -145,4 +145,6 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="list_image">List Image</string>
+    <string name="find_franchise">Find Franchise</string>
+    <string name="find_your_dream_franchise">Find your dream franchise</string>
 </resources>

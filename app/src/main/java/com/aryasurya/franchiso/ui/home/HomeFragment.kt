@@ -34,27 +34,6 @@ class HomeFragment : Fragment() {
 
         sessionManager = SessionManager(requireContext())
 
-//        val db = FirebaseFirestore.getInstance()
-//        val franchisesCollection = db.collection("franchises")
-//
-//        franchisesCollection.get()
-//            .addOnSuccessListener { documents ->
-//                val franchiseList = mutableListOf<FranchiseData>()
-//
-//                for (document in documents) {
-//                    val franchiseData = document.toObject(FranchiseData::class.java)
-//                    franchiseList.add(franchiseData)
-//                }
-//
-//                // Set up RecyclerView dengan adapter untuk menampilkan data franchises
-//                val adapter = FranchiseAdapter(franchiseList)
-//                binding.rvListStory.adapter = adapter
-//                binding.rvListStory.layoutManager = LinearLayoutManager(requireContext())
-//            }
-//            .addOnFailureListener { exception ->
-//                // Handle error jika gagal mengambil data dari Firestore
-//            }
-
         val swipeRefreshLayout = binding.swipeRefreshLayout
 
         // Tambahkan listener untuk refresh
@@ -62,12 +41,6 @@ class HomeFragment : Fragment() {
             // Panggil fungsi untuk memuat ulang data
             loadData()
         }
-
-        // ...
-
-        // Memuat data pertama kali ketika fragment dimuat
-        loadData()
-
     }
     override fun onResume() {
         super.onResume()
@@ -76,8 +49,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadData() {
-
-
         val user: User? = sessionManager.getSession()
 
         // Lakukan pengecekan apakah ada sesi pengguna atau tidak

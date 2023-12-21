@@ -53,7 +53,27 @@ class AddFranchiseActivity : AppCompatActivity() {
 
         Log.d("AddFranchiseActivity", "fId:  $franchiseId")
 
-        val items = listOf("Food", "Drink")
+        val items = listOf(
+            "Restaurant",
+            "Fast Food",
+            "Beverages",
+            "Education",
+            "Automotive",
+            "Fashion",
+            "Beauty & Healthcare",
+            "Barber",
+            "Services & Repair",
+            "Lifestyle & Sport",
+            "Electronic",
+            "Manufacturer & Expedition",
+            "Consulting",
+            "Cleaning Services",
+            "Car Wash",
+            "Business & Furniture",
+            "Hotel & Motel",
+            "Retail"
+        )
+
         val adapterCategory = ArrayAdapter(this@AddFranchiseActivity, R.layout.text_type_franchise, items)
         binding.autoCompleteTextView.setAdapter(adapterCategory)
 
