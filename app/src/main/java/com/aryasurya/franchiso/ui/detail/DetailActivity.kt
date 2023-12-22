@@ -32,7 +32,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         franchiseId = intent.getStringExtra("franchiseId")
-        modalBottomSheet = franchiseId?.let { ModalBottomSheetOptions(it) }
+
 
         val toolbar = binding.toolbar
         setSupportActionBar(toolbar)
@@ -68,6 +68,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             com.aryasurya.franchiso.R.id.action_more -> {
+                modalBottomSheet = franchiseId?.let { ModalBottomSheetOptions(it) }
                 modalBottomSheet?.show(supportFragmentManager, ModalBottomSheet.TAG)
                 true
             }
